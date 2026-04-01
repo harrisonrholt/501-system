@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>A-State Metal Buildings | 501 BluePage</title>
+
+  <!-- Open Graph — share preview -->
+  <meta property="og:title" content="A-State Metal Buildings">
+  <meta property="og:description" content="Custom steel structures, commercial builds & agricultural metal buildings. Maumelle, AR · Serving Nationwide.">
+  <meta property="og:url" content="https://501.business/astate-metal">
+  <meta property="og:type" content="website">
+
+  <!-- qrcode.js — must load before overlay script runs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    /* ── RESET ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand:       #C8911F;
+      --brand-glow:  rgba(200,145,31,0.35);
+      --brand-dim:   rgba(200,145,31,0.15);
+      --bg:          #07090f;
+      --glass:       rgba(255,255,255,0.038);
+      --border:      rgba(255,255,255,0.075);
+      --text:        #f2f2f7;
+      --muted:       rgba(242,242,247,0.50);
+      --dim:         rgba(242,242,247,0.28);
+      --font:        'Barlow', sans-serif;
+      --font-c:      'Barlow Condensed', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* ── ATMOSPHERIC BG ─────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 90% 40% at 50% -5%,  rgba(200,145,31,0.10) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 40% at 10% 90%,  rgba(28,45,80,0.18)  0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 90% 50%,  rgba(18,32,60,0.14)  0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── PAGE ───────────────────────────────────────────── */
+    .page {
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 0 0 88px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────── */
+    .header {
+      padding: 52px 24px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 26px;
+      background: var(--brand-dim);
+      border: 1.5px solid rgba(200,145,31,0.32);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      margin-bottom: 18px;
+      box-shadow:
+        0 0 36px rgba(200,145,31,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+
+    .biz-name {
+      font-family: var(--font-c);
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      line-height: 1.05;
+      margin-bottom: 7px;
+      color: #fff;
+    }
+
+    .biz-tagline {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 10px;
+      letter-spacing: 0.2px;
+    }
+
+    .biz-location {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11.5px;
+      color: var(--dim);
+      font-weight: 600;
+    }
+
+    /* ── QUICK ACTION STRIP ─────────────────────────────── */
+    .quick-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 0 14px 22px;
+    }
+
+    .qa-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      padding: 14px 8px 12px;
+      border-radius: 18px;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--text);
+      font-family: var(--font);
+      transition: transform .14s, background .14s;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.07);
+    }
+
+    .qa-btn:active { transform: scale(.93); background: rgba(255,255,255,0.07); }
+
+    .qa-icon  { font-size: 22px; line-height: 1; }
+    .qa-label { font-size: 10.5px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
+
+    /* ── SECTIONS ───────────────────────────────────────── */
+    .sections {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0 14px;
+    }
+
+    /* ── GLASS CARD ─────────────────────────────────────── */
+    .card {
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    .glass {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    /* ── CARD EYEBROW ───────────────────────────────────── */
+    .card-head {
+      padding: 15px 18px 2px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* ── TAP ROW ────────────────────────────────────────── */
+    .tap-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 18px;
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--text);
+      font-family: var(--font);
+      transition: background .14s;
+    }
+
+    .tap-row:last-child  { border-bottom: none; }
+    .tap-row:active      { background: rgba(255,255,255,0.04); }
+
+    .row-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      flex-shrink: 0;
+    }
+
+    .ri-green  { background: rgba(48,209,88,0.12);  border: 1px solid rgba(48,209,88,0.22);  }
+    .ri-blue   { background: rgba(0,122,255,0.12);  border: 1px solid rgba(0,122,255,0.22);  }
+    .ri-purple { background: rgba(191,90,242,0.12); border: 1px solid rgba(191,90,242,0.22); }
+    .ri-amber  { background: rgba(200,145,31,0.14); border: 1px solid rgba(200,145,31,0.28); }
+    .ri-teal   { background: rgba(48,209,165,0.12); border: 1px solid rgba(48,209,165,0.22); }
+    .ri-red    { background: rgba(255,69,58,0.12);  border: 1px solid rgba(255,69,58,0.22);  }
+
+    .row-text   { flex: 1; text-align: left; }
+    .row-title  { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.2; }
+    .row-sub    { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .row-arrow  { font-size: 18px; color: var(--dim); flex-shrink: 0; }
+
+    /* ── BADGE ──────────────────────────────────────────── */
+    .badge {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      padding: 4px 9px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .b-green { background: rgba(48,209,88,0.12); border: 1px solid rgba(48,209,88,0.25); color: #30D158; }
+
+    /* ── ABOUT CARD ─────────────────────────────────────── */
+    .about-card {
+      border-radius: 22px;
+      padding: 20px 18px 18px;
+    }
+
+    .about-eyebrow {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--dim);
+      margin-bottom: 11px;
+    }
+
+    .about-copy {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(242,242,247,0.72);
+      line-height: 1.75;
+      margin-bottom: 17px;
+    }
+
+    .about-ctas { display: flex; flex-direction: column; gap: 9px; }
+
+    .cta-primary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 18px;
+      border-radius: 50px;
+      background: rgba(200,145,31,0.16);
+      border: 1.5px solid rgba(200,145,31,0.32);
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+      cursor: pointer;
+      font-family: var(--font);
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
+      transition: transform .14s, background .14s;
+    }
+
+    .cta-secondary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      border-radius: 50px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(242,242,247,0.50);
+      cursor: pointer;
+      font-family: var(--font);
+      text-decoration: none;
+      transition: transform .14s;
+    }
+
+    .cta-primary:active  { transform: scale(.97); background: rgba(200,145,31,0.25); }
+    .cta-secondary:active{ transform: scale(.97); }
+
+    /* ── SHARE BUTTON ───────────────────────────────────── */
+    .share-row-inner {
+      padding: 0 14px 16px;
+    }
+
+    .share-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      padding: 14px;
+      border-radius: 50px;
+      background: rgba(200,145,31,0.10);
+      border: 1.5px solid rgba(200,145,31,0.28);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background .14s, transform .14s;
+    }
+
+    .share-btn:active { transform: scale(.97); background: rgba(200,145,31,0.20); }
+
+    /* ── DIVIDER ────────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 18px;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    .bp-footer {
+      padding: 32px 20px 0;
+      text-align: center;
+    }
+
+    .bp-footer a {
+      font-size: 11px;
+      color: var(--dim);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── KEYFRAMES (all overlays) ───────────────────────── */
+    @keyframes sheetUp   { from { transform: translateY(100%); }          to { transform: translateY(0); } }
+    @keyframes sheetDown { from { transform: translateY(0); }             to { transform: translateY(100%); } }
+    @keyframes slideUp   { from { transform: translateY(100%); opacity:0;} to { transform: translateY(0); opacity:1;} }
+    @keyframes slideDown { from { transform: translateY(0); opacity:1;}   to { transform: translateY(100%); opacity:0;} }
+    @keyframes qrPulse   { 0%,100%{box-shadow:0 0 22px rgba(200,145,31,0.28);} 50%{box-shadow:0 0 44px rgba(200,145,31,0.55);} }
+
+    /* ── OVERLAY SHARED BASE ────────────────────────────── */
+    .overlay-bg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.56);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 9998;
+    }
+
+    .overlay-sheet {
+      width: 100%;
+      max-width: 430px;
+      background: rgba(12,16,26,0.98);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-bottom: none;
+      border-radius: 24px 24px 0 0;
+      backdrop-filter: blur(36px);
+      -webkit-backdrop-filter: blur(36px);
+      box-shadow: 0 -8px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.11);
+    }
+
+    .drag-handle {
+      width: 36px; height: 4px;
+      background: rgba(255,255,255,0.17);
+      border-radius: 2px;
+      margin: 12px auto 20px;
+    }
+
+    .sheet-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.33);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .cancel-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 50px;
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.09);
+      color: rgba(255,255,255,0.42);
+      font-size: 14px;
+      font-weight: 700;
+      font-family: var(--font);
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- ══════════════════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════════════════ -->
+  <div class="header">
+    <div class="avatar">🏗️</div>
+    <div class="biz-name">A-State Metal Buildings</div>
+    <div class="biz-tagline">Custom Steel Structures · Built to Last</div>
+    <div class="biz-location">📍 Maumelle, AR · Serving Arkansas &amp; Nationwide</div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       QUICK ACTION STRIP
+  ══════════════════════════════════════════════════ -->
+  <div class="quick-strip">
+    <button onclick="openCall_astateMetal()" class="qa-btn">
+      <span class="qa-icon">📞</span>
+      <span class="qa-label">Call</span>
+    </button>
+    <a href="sms:8663330252" class="qa-btn">
+      <span class="qa-icon">💬</span>
+      <span class="qa-label">Text</span>
+    </a>
+    <button onclick="openCal_astateMetal()" class="qa-btn">
+      <span class="qa-icon">📅</span>
+      <span class="qa-label">Quote</span>
+    </button>
+    <a href="https://astatemetalbuildings.com" target="_blank" rel="noopener" class="qa-btn">
+      <span class="qa-icon">🌐</span>
+      <span class="qa-label">Website</span>
+    </a>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTIONS
+  ══════════════════════════════════════════════════ -->
+  <div class="sections">
+
+    <!-- ── ABOUT ─────────────────────────────────────── -->
+    <div class="about-card glass">
+      <div class="about-eyebrow">About</div>
+      <div class="about-copy">
+        Finding a metal building contractor who handles the whole job — design, materials, and installation — isn't easy. A-State Metal Buildings brings 60+ years of combined team experience to every structure we build. Based in Maumelle and serving Arkansas and beyond, we handle commercial, agricultural, and custom steel builds from the ground up.
+      </div>
+      <div class="about-ctas">
+        <button onclick="openCal_astateMetal()" class="cta-primary">
+          <span>Request a Free Quote →</span>
+        </button>
+        <button onclick="openCall_astateMetal()" class="cta-secondary">
+          <span>Call Direct →</span>
+          <span style="color:rgba(242,242,247,0.25);">›</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── SHARE ──────────────────────────────────────── -->
+    <div class="card glass">
+      <div class="card-head">Share</div>
+      <button onclick="openQR_astateMetal()" class="tap-row">
+        <div class="row-icon ri-amber">📲</div>
+        <div class="row-text">
+          <div class="row-title">Share or Scan</div>
+          <div class="row-sub">QR code · Send to anyone instantly</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </button>
+      <div class="share-row-inner">
+        <button class="share-btn" onclick="nativeShare_astateMetal()">
+          <span>📤</span>
+          <span>Send to a Friend</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── CONNECT ────────────────────────────────────── -->
+    <div class="card glass">
+      <div class="card-head">Connect</div>
+
+      <!-- Call -->
+      <button onclick="openCall_astateMetal()" class="tap-row">
+        <div class="row-icon ri-green">📞</div>
+        <div class="row-text">
+          <div class="row-title">Call A-State</div>
+          <div class="row-sub">Business line · (866) 333-0252</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </button>
+
+      <!-- Text -->
+      <a href="sms:8663330252" class="tap-row">
+        <div class="row-icon ri-blue">💬</div>
+        <div class="row-text">
+          <div class="row-title">Send a Text</div>
+          <div class="row-sub">Opens your messages app</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </a>
+
+      <!-- Email -->
+      <a href="mailto:kenny.hall@astatemetalbuildings.com" class="tap-row">
+        <div class="row-icon ri-teal">✉️</div>
+        <div class="row-text">
+          <div class="row-title">Send an Email</div>
+          <div class="row-sub">kenny.hall@astatemetalbuildings.com</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </a>
+
+      <!-- Save Contact -->
+      <button onclick="saveContact_astateMetal()" class="tap-row">
+        <div class="row-icon ri-purple">👤</div>
+        <div class="row-text">
+          <div class="row-title">Save to My Phone</div>
+          <div class="row-sub">One tap · Adds number + email to contacts</div>
+        </div>
+        <div class="row-arrow">↓</div>
+      </button>
+    </div>
+
+    <!-- ── BOOK & PAY ─────────────────────────────────── -->
+    <div class="card glass">
+      <div class="card-head">Book &amp; Pay</div>
+
+      <!-- Scheduling tap -->
+      <button onclick="openCal_astateMetal()" class="tap-row">
+        <div class="row-icon ri-blue">📅</div>
+        <div class="row-text">
+          <div class="row-title">Request a Quote</div>
+          <div class="row-sub">Free consultation · We come to you</div>
+        </div>
+        <span id="cal-badge-astateMetal" class="badge b-green">FREE</span>
+        <div class="row-arrow">›</div>
+      </button>
+    </div>
+
+    <!-- ── REVIEWS ────────────────────────────────────── -->
+    <div class="card glass">
+      <div class="card-head">Reviews</div>
+
+      <!-- Leave Google review — REPLACE placeid= with real Google Place ID -->
+      <a href="https://search.google.com/local/writereview?placeid=REPLACE_WITH_PLACE_ID" target="_blank" rel="noopener" class="tap-row">
+        <div class="row-icon ri-amber">⭐</div>
+        <div class="row-text">
+          <div class="row-title">Leave Us a Review</div>
+          <div class="row-sub">Google · Takes 60 seconds</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </a>
+
+      <!-- Website -->
+      <a href="https://astatemetalbuildings.com" target="_blank" rel="noopener" class="tap-row">
+        <div class="row-icon ri-teal">🌐</div>
+        <div class="row-text">
+          <div class="row-title">Visit Our Website</div>
+          <div class="row-sub">astatemetalbuildings.com</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </a>
+    </div>
+
+  </div><!-- /sections -->
+
+  <!-- FOOTER -->
+  <div class="bp-footer">
+    <a href="https://501.digital" target="_blank" rel="noopener">Powered by 501 Digital · 501.digital</a>
+  </div>
+
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     OVERLAY 1 — CALL BOTTOM SHEET
+══════════════════════════════════════════════════════ -->
+<div id="call-overlay-astateMetal" class="overlay-bg">
+  <div id="call-sheet-astateMetal" class="overlay-sheet" style="padding:0 16px 34px;">
+    <div class="drag-handle"></div>
+    <div class="sheet-title">How would you like to reach us?</div>
+
+    <!-- Business Line -->
+    <a href="tel:8663330252" onclick="closeFast_astateMetal()"
+       style="display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:16px;background:rgba(48,209,88,0.11);border:1.5px solid rgba(48,209,88,0.24);text-decoration:none;margin-bottom:10px;transition:background .14s;"
+       ontouchstart="this.style.background='rgba(48,209,88,0.21)'" ontouchend="this.style.background='rgba(48,209,88,0.11)'">
+      <div style="width:44px;height:44px;border-radius:50%;background:rgba(48,209,88,0.18);border:1px solid rgba(48,209,88,0.28);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">📞</div>
+      <div style="flex:1;">
+        <div style="font-size:15px;font-weight:800;color:#fff;">Business Line</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.44);margin-top:2px;">(866) 333-0252</div>
+      </div>
+      <div style="font-size:18px;color:rgba(255,255,255,0.24);">›</div>
+    </a>
+
+    <button onclick="closeCall_astateMetal()" class="cancel-btn">Cancel</button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     OVERLAY 2 — GHL CALENDAR (full screen)
+     ⚠ REPLACE data-src with this client's GHL calendar URL
+══════════════════════════════════════════════════════ -->
+<div id="cal-overlay-astateMetal" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:rgba(5,8,16,0.97);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  flex-direction:column;
+  animation:slideUp .32s cubic-bezier(.32,0,.67,0) both;
+">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px 13px;border-bottom:0.5px solid rgba(255,255,255,0.07);flex-shrink:0;">
+    <div style="font-size:15px;font-weight:800;color:#fff;">Request a Quote</div>
+    <button onclick="closeCal_astateMetal()" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.11);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,0.60);font-size:16px;font-family:inherit;">✕</button>
+  </div>
+  <iframe
+    id="cal-frame-astateMetal"
+    src=""
+    data-src="https://app.501.digital/widget/booking/pZXeYAha7IQzjulVwqhA"
+    style="flex:1;width:100%;border:none;background:transparent;"
+    allow="camera; microphone; geolocation"
+    loading="lazy"
+  ></iframe>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     OVERLAY 3 — QR SHARE SHEET
+══════════════════════════════════════════════════════ -->
+<div id="qr-overlay-astateMetal" class="overlay-bg" style="z-index:9998;">
+  <div id="qr-sheet-astateMetal" class="overlay-sheet" style="padding:0 24px 40px;border-radius:28px 28px 0 0;">
+    <div class="drag-handle"></div>
+
+    <!-- Identity -->
+    <div style="text-align:center;margin-bottom:22px;">
+      <div style="width:66px;height:66px;border-radius:20px;background:rgba(200,145,31,0.14);border:1.5px solid rgba(200,145,31,0.30);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 13px;">🏗️</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:#fff;">A-State Metal Buildings</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.38);margin-top:5px;">Scan to visit · or share below</div>
+    </div>
+
+    <!-- QR -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:9px;margin-bottom:22px;">
+      <div
+        id="qr-canvas-astateMetal"
+        onclick="shareQR_astateMetal()"
+        style="
+          width:200px;height:200px;
+          background:rgba(255,255,255,0.96);
+          border-radius:20px;
+          display:flex;align-items:center;justify-content:center;
+          animation:qrPulse 3s ease-in-out infinite;
+          cursor:pointer;
+          overflow:hidden;
+        "
+      ></div>
+      <div style="font-size:10px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,0.28);">Tap QR to Share</div>
+    </div>
+
+    <!-- Share Button -->
+    <button onclick="shareQR_astateMetal()" id="qr-share-btn-astateMetal"
+      style="width:100%;padding:16px;border-radius:50px;background:linear-gradient(135deg,#C8911F,#A67518);border:none;color:#fff;font-family:'Barlow',sans-serif;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:12px;box-shadow:0 4px 24px rgba(200,145,31,0.32);transition:transform .14s;"
+      ontouchstart="this.style.transform='scale(.97)'" ontouchend="this.style.transform='scale(1)'"
+    >📤 Send to a Friend</button>
+
+    <button onclick="closeQR_astateMetal()" class="cancel-btn">Close</button>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════════════════ -->
+<script>
+
+/* ──────────────────────────────────────────────────────
+   CALL SHEET
+─────────────────────────────────────────────────────── */
+function openCall_astateMetal() {
+  const o = document.getElementById('call-overlay-astateMetal');
+  const s = document.getElementById('call-sheet-astateMetal');
+  o.style.display = 'flex';
+  s.style.animation = 'sheetUp .30s cubic-bezier(.32,0,.67,0) both';
+  document.body.style.overflow = 'hidden';
+}
+function closeCall_astateMetal() {
+  const o = document.getElementById('call-overlay-astateMetal');
+  const s = document.getElementById('call-sheet-astateMetal');
+  s.style.animation = 'sheetDown .25s cubic-bezier(.33,1,.68,1) both';
+  setTimeout(() => { o.style.display = 'none'; document.body.style.overflow = ''; }, 235);
+}
+function closeFast_astateMetal() {
+  document.getElementById('call-overlay-astateMetal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.getElementById('call-overlay-astateMetal').addEventListener('click', function(e) {
+  if (e.target === this) closeCall_astateMetal();
+});
+
+
+/* ──────────────────────────────────────────────────────
+   CALENDAR OVERLAY
+─────────────────────────────────────────────────────── */
+function openCal_astateMetal() {
+  const o = document.getElementById('cal-overlay-astateMetal');
+  const f = document.getElementById('cal-frame-astateMetal');
+  if (!f.src || f.src === window.location.href) f.src = f.dataset.src;
+  o.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeCal_astateMetal() {
+  const o = document.getElementById('cal-overlay-astateMetal');
+  o.style.animation = 'slideDown .28s cubic-bezier(.33,1,.68,1) both';
+  setTimeout(() => {
+    o.style.display = 'none';
+    o.style.animation = 'slideUp .32s cubic-bezier(.32,0,.67,0) both';
+    document.body.style.overflow = '';
+  }, 265);
+}
+document.getElementById('cal-overlay-astateMetal').addEventListener('click', function(e) {
+  if (e.target === this) closeCal_astateMetal();
+});
+/* Hide badge if blank */
+(function(){
+  const b = document.getElementById('cal-badge-astateMetal');
+  if (b && !b.textContent.trim()) b.style.display = 'none';
+})();
+
+
+/* ──────────────────────────────────────────────────────
+   QR OVERLAY
+─────────────────────────────────────────────────────── */
+let qrBuilt_astateMetal = false;
+const QR_URL_astateMetal = 'https://501.business/astate-metal';
+const QR_SHARE_TEXT = "Need a metal building, carport, or commercial steel structure? A-State Metal Buildings is based in Arkansas — quality work, full service from design to install.";
+
+function openQR_astateMetal() {
+  const o = document.getElementById('qr-overlay-astateMetal');
+  const s = document.getElementById('qr-sheet-astateMetal');
+  o.style.display = 'flex';
+  s.style.animation = 'sheetUp .30s cubic-bezier(.32,0,.67,0) both';
+  document.body.style.overflow = 'hidden';
+
+  if (!qrBuilt_astateMetal && typeof QRCode !== 'undefined') {
+    new QRCode(document.getElementById('qr-canvas-astateMetal'), {
+      text:           QR_URL_astateMetal,
+      width:          164,
+      height:         164,
+      colorDark:      '#0a0e1c',
+      colorLight:     '#ffffff',
+      correctLevel:   QRCode.CorrectLevel.H
+    });
+    qrBuilt_astateMetal = true;
+  }
+}
+function closeQR_astateMetal() {
+  const o = document.getElementById('qr-overlay-astateMetal');
+  const s = document.getElementById('qr-sheet-astateMetal');
+  s.style.animation = 'sheetDown .25s cubic-bezier(.33,1,.68,1) both';
+  setTimeout(() => { o.style.display = 'none'; document.body.style.overflow = ''; }, 235);
+}
+function shareQR_astateMetal() {
+  if (navigator.share) {
+    navigator.share({ title: 'A-State Metal Buildings', text: QR_SHARE_TEXT, url: QR_URL_astateMetal })
+      .catch(() => {});
+  } else {
+    navigator.clipboard.writeText(QR_SHARE_TEXT + ' ' + QR_URL_astateMetal).then(() => {
+      const btn = document.getElementById('qr-share-btn-astateMetal');
+      btn.textContent = '✓ Link Copied!';
+      setTimeout(() => { btn.innerHTML = '📤 Send to a Friend'; }, 2000);
+    });
+  }
+}
+document.getElementById('qr-overlay-astateMetal').addEventListener('click', function(e) {
+  if (e.target === this) closeQR_astateMetal();
+});
+
+
+/* ──────────────────────────────────────────────────────
+   NATIVE SHARE (share section button)
+─────────────────────────────────────────────────────── */
+function nativeShare_astateMetal() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'A-State Metal Buildings',
+      text:  QR_SHARE_TEXT,
+      url:   QR_URL_astateMetal
+    }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(QR_SHARE_TEXT + ' ' + QR_URL_astateMetal).then(() => {
+      alert('Link copied to clipboard!');
+    });
+  }
+}
+
+
+/* ──────────────────────────────────────────────────────
+   SAVE CONTACT — vCard 3.0 (Kenny Hall / A-State)
+─────────────────────────────────────────────────────── */
+function saveContact_astateMetal() {
+  const v = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    'FN:Kenny Hall',
+    'N:Hall;Kenny;;;',
+    'ORG:A-State Metal Buildings',
+    'TITLE:CEO',
+    'TEL;TYPE=WORK:+18663330252',
+    'EMAIL:kenny.hall@astatemetalbuildings.com',
+    'URL:https://astatemetalbuildings.com',
+    'ADR;TYPE=WORK:;;Maumelle;AR;72113;US',
+    'NOTE:Metal Buildings serving Arkansas & nationwide',
+    'END:VCARD'
+  ].join('\r\n');
+
+  const blob = new Blob([v], { type: 'text/vcard;charset=utf-8' });
+  const a    = document.createElement('a');
+  a.href     = URL.createObjectURL(blob);
+  a.download = 'astate-metal-contact.vcf';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 500);
+}
+
+</script>
+
+</body>
+</html>
