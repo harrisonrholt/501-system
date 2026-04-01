@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>501 Digital — Phase 0 Master Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#080e1a;
+  --bg2:#0d1525;
+  --bg3:#111d30;
+  --border:rgba(0,140,255,0.12);
+  --border2:rgba(0,140,255,0.22);
+  --text:#e8f0ff;
+  --muted:rgba(160,190,240,0.5);
+  --dim:rgba(120,155,210,0.35);
+  --blue:#2d8fff;
+  --cyan:#00d4ff;
+  --green:#22c55e;
+  --gold:#f0a500;
+  --purple:#a78bfa;
+  --pink:#f472b6;
+  --orange:#fb923c;
+  --red:#f87171;
+  --teal:#2dd4bf;
+  --mono:'DM Mono',monospace;
+  --sans:'DM Sans',sans-serif;
+}
+html{background:var(--bg);color:var(--text);font-family:var(--sans);}
+body{max-width:1100px;margin:0 auto;padding:32px 24px 80px;}
+
+/* ── HEADER ── */
+.doc-header{
+  border-bottom:1px solid var(--border2);
+  padding-bottom:28px;margin-bottom:40px;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:20px;
+  flex-wrap:wrap;
+}
+.doc-title{font-size:28px;font-weight:900;letter-spacing:-0.5px;color:#fff;line-height:1.1;}
+.doc-title span{
+  background:linear-gradient(90deg,#2d8fff,#00d4ff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.doc-meta{font-size:11.5px;color:var(--muted);font-family:var(--mono);line-height:1.7;text-align:right;}
+.doc-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,140,255,0.1);border:1px solid rgba(0,140,255,0.25);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;color:var(--blue);letter-spacing:1px;text-transform:uppercase;margin-top:8px;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.8s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* ── SECTION ── */
+.section{margin-bottom:52px;}
+.section-header{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:20px;padding-bottom:12px;
+  border-bottom:1px solid var(--border);
+}
+.section-num{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(135deg,rgba(0,100,255,0.25),rgba(0,60,200,0.15));
+  border:1px solid rgba(0,140,255,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:var(--blue);flex-shrink:0;
+  font-family:var(--mono);
+}
+.section-title{font-size:18px;font-weight:800;color:#fff;}
+.section-sub{font-size:12px;color:var(--muted);margin-top:2px;}
+
+/* ── TABLE ── */
+.ftable{width:100%;border-collapse:collapse;font-size:12.5px;}
+.ftable th{
+  text-align:left;padding:9px 12px;
+  background:rgba(0,100,255,0.08);
+  border:1px solid var(--border);
+  color:var(--blue);font-weight:700;
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  font-family:var(--mono);
+}
+.ftable td{
+  padding:9px 12px;border:1px solid var(--border);
+  color:var(--text);vertical-align:top;line-height:1.5;
+}
+.ftable tr:hover td{background:rgba(0,100,255,0.04);}
+.ftable tr td:first-child{font-family:var(--mono);font-size:11.5px;color:var(--cyan);white-space:nowrap;}
+
+/* Source badges */
+.src{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:9.5px;font-weight:700;letter-spacing:0.5px;white-space:nowrap;font-family:var(--mono);}
+.src-scrape{background:rgba(34,197,94,0.12);color:#22c55e;border:1px solid rgba(34,197,94,0.2);}
+.src-manual{background:rgba(249,115,22,0.12);color:#fb923c;border:1px solid rgba(249,115,22,0.2);}
+.src-system{background:rgba(167,139,250,0.12);color:#a78bfa;border:1px solid rgba(167,139,250,0.2);}
+.src-both{background:rgba(0,212,255,0.1);color:#00d4ff;border:1px solid rgba(0,212,255,0.2);}
+
+/* Output pills */
+.out{display:inline-flex;align-items:center;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:700;margin:2px 2px 2px 0;white-space:nowrap;}
+.out-bp{background:rgba(45,143,255,0.15);color:#60a5fa;}
+.out-oracle{background:rgba(240,165,0,0.12);color:#f0a500;}
+.out-kb{background:rgba(167,139,250,0.12);color:#c4b5fd;}
+.out-email{background:rgba(236,72,153,0.12);color:#f9a8d4;}
+.out-ghl{background:rgba(34,197,94,0.12);color:#4ade80;}
+.out-cold{background:rgba(6,182,212,0.12);color:#67e8f9;}
+.out-review{background:rgba(250,204,21,0.12);color:#fde047;}
+.out-chat{background:rgba(249,115,22,0.12);color:#fdba74;}
+
+/* Data type */
+.dtype{font-family:var(--mono);font-size:10px;color:var(--dim);}
+
+/* ── DEPENDENCY MAP ── */
+.dep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+.dep-card{
+  background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;
+}
+.dep-card-title{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-family:var(--mono);}
+.dep-field{
+  display:flex;align-items:center;gap:8px;
+  padding:6px 10px;border-radius:7px;margin-bottom:5px;
+  background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.05);
+  font-size:11.5px;font-family:var(--mono);color:var(--cyan);
+}
+.dep-arrow{color:var(--dim);font-size:10px;margin:0 3px;}
+.dep-dest{font-size:10px;color:var(--muted);flex:1;}
+
+/* ── WEBHOOK MAP ── */
+.webhook-block{
+  background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:14px;
+}
+.webhook-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px;}
+.webhook-sub{font-size:11px;color:var(--muted);margin-bottom:14px;}
+.webhook-map{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:6px;}
+.wm-from{font-family:var(--mono);font-size:11px;color:var(--cyan);background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:5px;padding:5px 10px;}
+.wm-arrow{color:var(--dim);font-size:14px;text-align:center;}
+.wm-to{font-family:var(--mono);font-size:11px;color:var(--green);background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:5px;padding:5px 10px;}
+
+/* ── QUESTIONNAIRE ── */
+.q-section{
+  background:var(--bg2);border:1px solid var(--border);border-radius:14px;
+  margin-bottom:16px;overflow:hidden;
+}
+.q-header{
+  display:flex;align-items:center;gap:14px;padding:16px 20px;
+  background:rgba(0,100,255,0.06);border-bottom:1px solid var(--border);
+  cursor:pointer;
+}
+.q-num{
+  width:28px;height:28px;border-radius:7px;
+  background:linear-gradient(135deg,rgba(0,100,255,0.3),rgba(0,50,180,0.2));
+  border:1px solid rgba(0,140,255,0.35);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;color:var(--blue);flex-shrink:0;font-family:var(--mono);
+}
+.q-header-text{flex:1;}
+.q-section-title{font-size:14px;font-weight:800;color:#fff;}
+.q-section-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.q-mode{font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:4px;}
+.q-body{padding:16px 20px;}
+.q-field{
+  display:flex;align-items:flex-start;gap:12px;padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.q-field:last-child{border-bottom:none;}
+.q-label{font-size:13px;font-weight:600;color:var(--text);flex:1;line-height:1.4;}
+.q-field-key{font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:2px;}
+.q-required{color:var(--red);font-size:10px;font-weight:700;flex-shrink:0;margin-top:2px;}
+.q-scrape-tag{font-size:9px;font-weight:700;color:var(--green);background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.18);border-radius:4px;padding:2px 6px;flex-shrink:0;font-family:var(--mono);}
+
+/* ── NAMING CONVENTIONS ── */
+.conv-table{width:100%;border-collapse:collapse;font-size:12px;}
+.conv-table td{padding:8px 12px;border:1px solid var(--border);vertical-align:top;}
+.conv-table td:first-child{font-family:var(--mono);color:var(--cyan);width:30%;}
+.conv-table td:nth-child(2){color:var(--gold);font-family:var(--mono);width:30%;}
+.conv-table td:last-child{color:var(--muted);width:40%;}
+
+/* ── FLOW DIAGRAM ── */
+.flow{display:flex;flex-direction:column;gap:0;}
+.flow-step{
+  display:flex;align-items:flex-start;gap:16px;padding:14px 0;
+  position:relative;
+}
+.flow-step::before{
+  content:'';position:absolute;left:19px;top:52px;bottom:-14px;
+  width:2px;background:linear-gradient(180deg,rgba(0,140,255,0.3),transparent);
+}
+.flow-step:last-child::before{display:none;}
+.flow-dot{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;font-family:var(--mono);
+  border:2px solid rgba(0,140,255,0.35);
+  background:rgba(0,80,220,0.15);color:var(--blue);
+}
+.flow-content{flex:1;padding-top:6px;}
+.flow-title{font-size:14px;font-weight:700;color:#fff;}
+.flow-desc{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.6;}
+.flow-tag{display:inline-flex;gap:5px;margin-top:6px;flex-wrap:wrap;}
+
+/* ── COWORK MATRIX ── */
+.cowork-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.cowork-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;}
+.cowork-owner{font-size:9.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-family:var(--mono);}
+.cowork-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px;color:var(--muted);line-height:1.4;}
+.cowork-item:last-child{border-bottom:none;}
+.ci{flex-shrink:0;font-size:14px;}
+
+/* ── NAP BOX ── */
+.nap-box{
+  background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.2);
+  border-radius:12px;padding:18px 20px;margin-bottom:20px;
+}
+.nap-title{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;font-family:var(--mono);}
+.nap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;}
+.nap-field{font-family:var(--mono);font-size:11.5px;color:var(--text);}
+.nap-field span{color:var(--dim);}
+
+/* ── TOC ── */
+.toc{
+  background:var(--bg2);border:1px solid var(--border);border-radius:12px;
+  padding:18px 20px;margin-bottom:40px;
+}
+.toc-title{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-family:var(--mono);}
+.toc-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px;}
+.toc-item{font-size:12px;color:var(--blue);text-decoration:none;display:flex;align-items:center;gap:7px;padding:5px 8px;border-radius:6px;transition:background .15s;}
+.toc-item:hover{background:rgba(0,100,255,0.08);}
+.toc-item span{font-family:var(--mono);font-size:10px;color:var(--dim);}
+
+/* ── CALLOUT ── */
+.callout{border-radius:10px;padding:14px 16px;margin:14px 0;display:flex;gap:12px;align-items:flex-start;}
+.callout-warn{background:rgba(240,165,0,0.08);border:1px solid rgba(240,165,0,0.2);}
+.callout-info{background:rgba(0,140,255,0.08);border:1px solid rgba(0,140,255,0.2);}
+.callout-success{background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);}
+.callout-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.callout-text{font-size:12.5px;color:var(--muted);line-height:1.65;}
+.callout-text strong{color:var(--text);font-weight:700;}
+
+@media(max-width:600px){
+  .cowork-grid{grid-template-columns:1fr;}
+  .webhook-map{grid-template-columns:1fr;gap:4px;}
+  .wm-arrow{transform:rotate(90deg);}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="doc-header">
+  <div>
+    <div class="doc-title"><span>501 Digital Marketing</span><br>Phase 0 — Master Blueprint</div>
+    <div style="font-size:13px;color:var(--muted);margin-top:8px;line-height:1.6;">Single source of truth for every field, every output,<br>every GHL key, and every automation dependency.</div>
+    <div class="doc-badge"><div class="dot"></div>v1.0 — March 2026</div>
+  </div>
+  <div class="doc-meta">
+    Author: Harrison Holt<br>
+    Agency: 501 Digital Marketing<br>
+    GHL Location: Frybhc0vA1PWLTHoTIR8<br>
+    Last Updated: March 30, 2026<br>
+    Status: LOCKED — DO NOT CHANGE WITHOUT UPDATING ALL OUTPUTS
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">Table of Contents</div>
+  <div class="toc-list">
+    <a href="#s1" class="toc-item"><span>01</span> NAP Consistency Rules</a>
+    <a href="#s2" class="toc-item"><span>02</span> Complete Field Schema</a>
+    <a href="#s3" class="toc-item"><span>03</span> Field → Output Map</a>
+    <a href="#s4" class="toc-item"><span>04</span> New 6-Part Questionnaire</a>
+    <a href="#s5" class="toc-item"><span>05</span> GHL Webhook Mapping</a>
+    <a href="#s6" class="toc-item"><span>06</span> Scraper Field Coverage</a>
+    <a href="#s7" class="toc-item"><span>07</span> Naming Conventions</a>
+    <a href="#s8" class="toc-item"><span>08</span> Full Automation Flow</a>
+    <a href="#s9" class="toc-item"><span>09</span> Cowork Responsibility Matrix</a>
+    <a href="#s10" class="toc-item"><span>10</span> Build Order Reference</a>
+  </div>
+</div>
+
+<!-- S1: NAP -->
+<div class="section" id="s1">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div>
+      <div class="section-title">NAP Consistency Rules</div>
+      <div class="section-sub">Name · Address · Phone — the foundation of all local SEO. These 3 fields must be byte-for-byte identical everywhere.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-warn">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-text"><strong>NAP inconsistency is the #1 reason local businesses don't rank.</strong> The scraper captures NAP as it exists on Google, Yelp, and the client's site. Discrepancies are flagged as audit findings — these are your sales pain points and billable fixes. Every output in this system uses the canonical NAP fields below. Never use a different format in any two places.</div>
+  </div>
+
+  <div class="nap-box">
+    <div class="nap-title">Canonical NAP Fields — Master Definitions</div>
+    <div class="nap-grid">
+      <div class="nap-field"><span>NAME →</span> business_name<br><span style="font-size:10px;color:var(--dim);">Full legal or DBA name exactly as filed</span></div>
+      <div class="nap-field"><span>ADDRESS →</span> address_street + address_city + address_state + address_zip<br><span style="font-size:10px;color:var(--dim);">Never abbreviate — 123 Main Street, not 123 Main St</span></div>
+      <div class="nap-field"><span>PHONE →</span> phone_business<br><span style="font-size:10px;color:var(--dim);">Format: (501) 555-1234 — consistent everywhere</span></div>
+      <div class="nap-field"><span>WEBSITE →</span> website_url<br><span style="font-size:10px;color:var(--dim);">Include https:// — no trailing slash</span></div>
+    </div>
+  </div>
+
+  <table class="ftable">
+    <tr><th>Platform</th><th>Where NAP Lives</th><th>Scraper Can Check?</th><th>Billable Fix If Wrong?</th></tr>
+    <tr><td>google_business</td><td>Google Business Profile</td><td><span class="src src-scrape">✓ AUTO</span></td><td style="color:var(--green);">Yes — GBP edit</td></tr>
+    <tr><td>yelp_profile</td><td>Yelp business listing</td><td><span class="src src-scrape">✓ AUTO</span></td><td style="color:var(--green);">Yes — Yelp claim</td></tr>
+    <tr><td>facebook_page</td><td>Facebook About section</td><td><span class="src src-scrape">✓ AUTO</span></td><td style="color:var(--green);">Yes — page edit</td></tr>
+    <tr><td>website_footer</td><td>Client's own website</td><td><span class="src src-scrape">✓ AUTO</span></td><td style="color:var(--green);">Yes — site edit</td></tr>
+    <tr><td>bbb_profile</td><td>BBB listing</td><td><span class="src src-both">PARTIAL</span></td><td style="color:var(--green);">Yes — BBB claim</td></tr>
+    <tr><td>501_citation_network</td><td>All 501.business, harryslist.pro, etc.</td><td><span class="src src-system">SYSTEM</span></td><td style="color:var(--blue);">Auto-corrected on deploy</td></tr>
+    <tr><td>apple_maps</td><td>Apple Maps listing</td><td><span class="src src-manual">MANUAL</span></td><td style="color:var(--green);">Yes — Apple Business Connect</td></tr>
+    <tr><td>bing_places</td><td>Bing Places</td><td><span class="src src-manual">MANUAL</span></td><td style="color:var(--green);">Yes — Bing Places claim</td></tr>
+  </table>
+</div>
+
+<!-- S2: FIELD SCHEMA -->
+<div class="section" id="s2">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div>
+      <div class="section-title">Complete GHL Custom Field Schema</div>
+      <div class="section-sub">Every field. Exact GHL key name. Data type. Source. Where it outputs. Create these in GHL → Settings → Custom Fields → Contacts before building anything else.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-info">
+    <div class="callout-icon">ℹ️</div>
+    <div class="callout-text"><strong>Source key:</strong> <span class="src src-scrape">AUTO</span> = scraper fills this. <span class="src src-manual">MANUAL</span> = client must provide. <span class="src src-both">BOTH</span> = scraper pre-fills, client confirms. <span class="src src-system">SYSTEM</span> = auto-generated by the platform, never entered by human.</div>
+  </div>
+
+  <!-- GROUP A: IDENTITY & NAP -->
+  <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--blue);text-transform:uppercase;font-family:var(--mono);margin:20px 0 8px;">GROUP A — Identity & NAP</div>
+  <table class="ftable" style="margin-bottom:20px;">
+    <tr><th>GHL Field Key</th><th>Label</th><th>Type</th><th>Source</th><th>Outputs To</th></tr>
+    <tr><td>business_name</td><td>Business Name (canonical)</td><td class="dtype">text</td><td><span class="src src-both">BOTH</span></td><td><span class="out out-bp">BluePage</span><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span><span class="out out-email">Email</span><span class="out out-cold">Cold Call</span></td></tr>
+    <tr><td>owner_first_name</td><td>Owner First Name</td><td class="dtype">text</td><td><span class="src src-both">BOTH</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-email">Email</span><span class="out out-cold">Cold Call</span></td></tr>
+    <tr><td>owner_last_name</td><td>Owner Last Name</td><td class="dtype">text</td><td><span class="src src-both">BOTH</span></td><td><span class="out out-email">Email</span><span class="out out-cold">Cold Call</span></td></tr>
+    <tr><td>address_street</td><td>Street Address</td><td class="dtype">text</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-bp">BluePage</span><span class="out out-kb">KB</span></td></tr>
+    <tr><td>address_city</td><td>City</td><td class="dtype">text</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-bp">BluePage</span><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span><span class="out out-email">Email</span><span class="out out-cold">Cold Call</span></td></tr>
+    <tr><td>address_state</td><td>State (2-letter)</td><td class="dtype">text</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-bp">BluePage</span><span class="out out-kb">KB</span></td></tr>
+    <tr><td>address_zip</td><td>ZIP Code</td><td class="dtype">text</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-kb">KB</span></td></tr>
+    <tr><td>service_area</td><td>Service Area Cities (comma list)</td><td class="dtype">textarea</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>trade_type</td><td>Trade / Industry</td><td class="dtype">dropdown</td><td><span class="src src-both">BOTH</span></td><td><span class="out out-bp">BluePage</span><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span><span class="out out-email">Email</span><span class="out out-cold">Cold Call</span></td></tr>
+    <tr><td>website_url</td><td>Current Website URL</td><td class="dtype">url</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-bp">BluePage</span><span class="out out-cold">Cold Call</span></td></tr>
+    <tr><td>years_in_business</td><td>Years in Business</td><td class="dtype">number</td><td><span class="src src-both">BOTH</span></td><td><span class="out out-bp">BluePage</span><span class="out out-kb">KB</span><span class="out out-cold">Cold Call</span></td></tr>
+    <tr><td>founded_year</td><td>Year Founded</td><td class="dtype">number</td><td><span class="src src-both">BOTH</span></td><td><span class="out out-kb">KB</span><span class="out out-bp">BluePage</span></td></tr>
+  </table>
+
+  <!-- GROUP B: PHONE LINES -->
+  <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--gold);text-transform:uppercase;font-family:var(--mono);margin:20px 0 8px;">GROUP B — Phone Lines</div>
+  <table class="ftable" style="margin-bottom:20px;">
+    <tr><th>GHL Field Key</th><th>Label</th><th>Type</th><th>Source</th><th>Outputs To</th></tr>
+    <tr><td>phone_business</td><td>Business Phone (canonical NAP)</td><td class="dtype">phone</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-bp">BluePage</span><span class="out out-kb">KB</span><span class="out out-email">Email</span><span class="out out-cold">Cold Call</span></td></tr>
+    <tr><td>phone_owner_cell</td><td>Owner Cell (private)</td><td class="dtype">phone</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>phone_oracle</td><td>Oracle AI Phone Number</td><td class="dtype">phone</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-bp">BluePage</span><span class="out out-kb">KB</span></td></tr>
+    <tr><td>phone_sms</td><td>SMS / Text Line</td><td class="dtype">phone</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>phone_emergency</td><td>Emergency Transfer Number</td><td class="dtype">phone</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span></td></tr>
+  </table>
+
+  <!-- GROUP C: EMAIL & WEB -->
+  <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--teal);text-transform:uppercase;font-family:var(--mono);margin:20px 0 8px;">GROUP C — Email & Digital</div>
+  <table class="ftable" style="margin-bottom:20px;">
+    <tr><th>GHL Field Key</th><th>Label</th><th>Type</th><th>Source</th><th>Outputs To</th></tr>
+    <tr><td>email_business</td><td>Business Email</td><td class="dtype">email</td><td><span class="src src-both">BOTH</span></td><td><span class="out out-kb">KB</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>email_owner</td><td>Owner Personal Email</td><td class="dtype">email</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-email">Email</span><span class="out out-ghl">GHL</span></td></tr>
+    <tr><td>url_booking</td><td>GHL Booking Calendar URL</td><td class="dtype">url</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-bp">BluePage</span><span class="out out-chat">Chatbot</span></td></tr>
+    <tr><td>url_bluepage_live</td><td>BluePage Live URL</td><td class="dtype">url</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-email">Email</span><span class="out out-ghl">GHL</span></td></tr>
+    <tr><td>url_custom_domain</td><td>Custom Domain (if any)</td><td class="dtype">url</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+  </table>
+
+  <!-- GROUP D: PAYMENT -->
+  <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--green);text-transform:uppercase;font-family:var(--mono);margin:20px 0 8px;">GROUP D — Payment Handles</div>
+  <table class="ftable" style="margin-bottom:20px;">
+    <tr><th>GHL Field Key</th><th>Label</th><th>Type</th><th>Source</th><th>Outputs To</th></tr>
+    <tr><td>pay_cashapp</td><td>Cash App Handle</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>pay_paypal</td><td>PayPal.me Handle</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>pay_venmo</td><td>Venmo Handle</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>pay_stripe_url</td><td>Stripe Checkout URL</td><td class="dtype">url</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>pay_invoice_url</td><td>Invoice Pay URL</td><td class="dtype">url</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+  </table>
+
+  <!-- GROUP E: REVIEW & SOCIAL -->
+  <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--gold);text-transform:uppercase;font-family:var(--mono);margin:20px 0 8px;">GROUP E — Review Links & Social</div>
+  <table class="ftable" style="margin-bottom:20px;">
+    <tr><th>GHL Field Key</th><th>Label</th><th>Type</th><th>Source</th><th>Outputs To</th></tr>
+    <tr><td>url_google_review</td><td>Google Write-a-Review URL</td><td class="dtype">url</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-bp">BluePage</span><span class="out out-review">Review Widget</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>url_yelp_review</td><td>Yelp Write-a-Review URL</td><td class="dtype">url</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-bp">BluePage</span><span class="out out-review">Review Widget</span></td></tr>
+    <tr><td>url_facebook_review</td><td>Facebook Reviews Tab URL</td><td class="dtype">url</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-bp">BluePage</span><span class="out out-review">Review Widget</span></td></tr>
+    <tr><td>url_facebook_page</td><td>Facebook Page URL</td><td class="dtype">url</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>url_instagram</td><td>Instagram Profile URL</td><td class="dtype">url</td><td><span class="src src-both">BOTH</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>url_google_business</td><td>Google Business Profile URL</td><td class="dtype">url</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-bp">BluePage</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>url_tiktok</td><td>TikTok Profile URL</td><td class="dtype">url</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>url_nextdoor</td><td>Nextdoor Profile URL</td><td class="dtype">url</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>url_angi</td><td>Angi Profile URL</td><td class="dtype">url</td><td><span class="src src-both">BOTH</span></td><td><span class="out out-bp">BluePage</span><span class="out out-cold">Cold Call</span></td></tr>
+    <tr><td>url_thumbtack</td><td>Thumbtack Profile URL</td><td class="dtype">url</td><td><span class="src src-both">BOTH</span></td><td><span class="out out-bp">BluePage</span><span class="out out-cold">Cold Call</span></td></tr>
+    <tr><td>url_bbb</td><td>BBB Profile URL</td><td class="dtype">url</td><td><span class="src src-both">BOTH</span></td><td><span class="out out-bp">BluePage</span><span class="out out-cold">Cold Call</span></td></tr>
+  </table>
+
+  <!-- GROUP F: SERVICES & BRAND -->
+  <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--purple);text-transform:uppercase;font-family:var(--mono);margin:20px 0 8px;">GROUP F — Services, Brand & Voice</div>
+  <table class="ftable" style="margin-bottom:20px;">
+    <tr><th>GHL Field Key</th><th>Label</th><th>Type</th><th>Source</th><th>Outputs To</th></tr>
+    <tr><td>services_list</td><td>Services Offered (full list)</td><td class="dtype">textarea</td><td><span class="src src-both">BOTH</span></td><td><span class="out out-bp">BluePage</span><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span><span class="out out-email">Email</span><span class="out out-chat">Chatbot</span></td></tr>
+    <tr><td>services_specialty</td><td>Signature / Specialty Service</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span></td></tr>
+    <tr><td>pricing_model</td><td>Pricing Model</td><td class="dtype">dropdown</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span><span class="out out-chat">Chatbot</span></td></tr>
+    <tr><td>pricing_summary</td><td>Pricing Details / Ranges</td><td class="dtype">textarea</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span><span class="out out-chat">Chatbot</span></td></tr>
+    <tr><td>free_estimates</td><td>Offers Free Estimates?</td><td class="dtype">boolean</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>licenses_certs</td><td>Licenses & Certifications</td><td class="dtype">text</td><td><span class="src src-both">BOTH</span></td><td><span class="out out-bp">BluePage</span><span class="out out-kb">KB</span></td></tr>
+    <tr><td>payment_methods</td><td>Accepted Payment Methods</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span></td></tr>
+    <tr><td>business_bio</td><td>About / Origin Story</td><td class="dtype">textarea</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span><span class="out out-kb">KB</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>unique_selling_points</td><td>Top 3 USPs</td><td class="dtype">textarea</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span><span class="out out-cold">Cold Call</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>brand_tagline</td><td>Tagline / Slogan</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>brand_tone</td><td>Brand Voice / Tone</td><td class="dtype">dropdown</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>brand_color_primary</td><td>Brand Primary Color (hex)</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>brand_color_accent</td><td>Brand Accent Color (hex)</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>brand_emoji</td><td>Trade Emoji Icon</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>logo_url</td><td>Logo Image URL</td><td class="dtype">url</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span><span class="out out-email">Email</span></td></tr>
+  </table>
+
+  <!-- GROUP G: HOURS -->
+  <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--teal);text-transform:uppercase;font-family:var(--mono);margin:20px 0 8px;">GROUP G — Business Hours</div>
+  <table class="ftable" style="margin-bottom:20px;">
+    <tr><th>GHL Field Key</th><th>Label</th><th>Type</th><th>Source</th><th>Outputs To</th></tr>
+    <tr><td>hours_weekdays</td><td>Mon–Fri Hours</td><td class="dtype">text</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span><span class="out out-chat">Chatbot</span></td></tr>
+    <tr><td>hours_saturday</td><td>Saturday Hours</td><td class="dtype">text</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span></td></tr>
+    <tr><td>hours_sunday</td><td>Sunday Hours</td><td class="dtype">text</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span></td></tr>
+    <tr><td>after_hours_available</td><td>After-Hours Emergency?</td><td class="dtype">boolean</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span></td></tr>
+    <tr><td>emergency_policy</td><td>Emergency Policy Description</td><td class="dtype">textarea</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span></td></tr>
+  </table>
+
+  <!-- GROUP H: ORACLE AI -->
+  <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--gold);text-transform:uppercase;font-family:var(--mono);margin:20px 0 8px;">GROUP H — Oracle AI Configuration</div>
+  <table class="ftable" style="margin-bottom:20px;">
+    <tr><th>GHL Field Key</th><th>Label</th><th>Type</th><th>Source</th><th>Outputs To</th></tr>
+    <tr><td>oracle_greeting</td><td>Oracle Greeting Script</td><td class="dtype">textarea</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span></td></tr>
+    <tr><td>oracle_faq_1</td><td>FAQ #1 — Question</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span><span class="out out-bp">BluePage</span><span class="out out-chat">Chatbot</span></td></tr>
+    <tr><td>oracle_faq_1_answer</td><td>FAQ #1 — Answer</td><td class="dtype">textarea</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span><span class="out out-bp">BluePage</span><span class="out out-chat">Chatbot</span></td></tr>
+    <tr><td>oracle_faq_2</td><td>FAQ #2 — Question</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>oracle_faq_2_answer</td><td>FAQ #2 — Answer</td><td class="dtype">textarea</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>oracle_faq_3</td><td>FAQ #3 — Question</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span></td></tr>
+    <tr><td>oracle_faq_3_answer</td><td>FAQ #3 — Answer</td><td class="dtype">textarea</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span></td></tr>
+    <tr><td>oracle_faq_4</td><td>FAQ #4 — Question</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span></td></tr>
+    <tr><td>oracle_faq_4_answer</td><td>FAQ #4 — Answer</td><td class="dtype">textarea</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span></td></tr>
+    <tr><td>oracle_faq_5</td><td>FAQ #5 — Question</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span></td></tr>
+    <tr><td>oracle_faq_5_answer</td><td>FAQ #5 — Answer</td><td class="dtype">textarea</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span><span class="out out-kb">KB</span></td></tr>
+    <tr><td>oracle_never_say</td><td>Oracle — Never Say This</td><td class="dtype">textarea</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-oracle">Oracle</span></td></tr>
+  </table>
+
+  <!-- GROUP I: AUDIT DATA -->
+  <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--red);text-transform:uppercase;font-family:var(--mono);margin:20px 0 8px;">GROUP I — Audit Data (Scraper-Populated, Read-Only)</div>
+  <table class="ftable" style="margin-bottom:20px;">
+    <tr><th>GHL Field Key</th><th>Label</th><th>Type</th><th>Source</th><th>Outputs To</th></tr>
+    <tr><td>audit_google_rating</td><td>Google Star Rating</td><td class="dtype">decimal</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-cold">Cold Call Brief</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>audit_google_reviews</td><td>Google Review Count</td><td class="dtype">number</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-cold">Cold Call Brief</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>audit_last_review_date</td><td>Date of Last Google Review</td><td class="dtype">date</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-cold">Cold Call Brief</span></td></tr>
+    <tr><td>audit_yelp_rating</td><td>Yelp Star Rating</td><td class="dtype">decimal</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-cold">Cold Call Brief</span></td></tr>
+    <tr><td>audit_yelp_reviews</td><td>Yelp Review Count</td><td class="dtype">number</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-cold">Cold Call Brief</span></td></tr>
+    <tr><td>audit_mobile_score</td><td>Google PageSpeed Mobile Score</td><td class="dtype">number</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-cold">Cold Call Brief</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>audit_has_booking</td><td>Has Online Booking?</td><td class="dtype">boolean</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-cold">Cold Call Brief</span></td></tr>
+    <tr><td>audit_has_website</td><td>Has a Website?</td><td class="dtype">boolean</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-cold">Cold Call Brief</span></td></tr>
+    <tr><td>audit_nap_consistent</td><td>NAP Consistent Across Platforms?</td><td class="dtype">boolean</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-cold">Cold Call Brief</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>audit_competitor_1</td><td>Top Competitor Name</td><td class="dtype">text</td><td><span class="src src-both">BOTH</span></td><td><span class="out out-cold">Cold Call Brief</span></td></tr>
+    <tr><td>audit_competitor_1_rating</td><td>Top Competitor Rating</td><td class="dtype">decimal</td><td><span class="src src-scrape">AUTO</span></td><td><span class="out out-cold">Cold Call Brief</span></td></tr>
+    <tr><td>audit_scrape_date</td><td>Date Scraped</td><td class="dtype">date</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-cold">Cold Call Brief</span></td></tr>
+  </table>
+
+  <!-- GROUP J: SYSTEM & PACKAGE -->
+  <div style="font-size:10px;font-weight:800;letter-spacing:2px;color:var(--cyan);text-transform:uppercase;font-family:var(--mono);margin:20px 0 8px;">GROUP J — System Config & Package</div>
+  <table class="ftable" style="margin-bottom:20px;">
+    <tr><th>GHL Field Key</th><th>Label</th><th>Type</th><th>Source</th><th>Outputs To</th></tr>
+    <tr><td>package_tier</td><td>Package Tier</td><td class="dtype">dropdown</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-ghl">GHL Pipeline</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>monthly_rate</td><td>Monthly Recurring Rate ($)</td><td class="dtype">number</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-ghl">GHL</span></td></tr>
+    <tr><td>setup_fee</td><td>One-Time Setup Fee ($)</td><td class="dtype">number</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-ghl">GHL</span></td></tr>
+    <tr><td>go_live_date</td><td>BluePage Go-Live Date</td><td class="dtype">date</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-ghl">GHL</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>billing_start_date</td><td>Billing Start Date</td><td class="dtype">date</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-ghl">GHL</span></td></tr>
+    <tr><td>has_oracle</td><td>Oracle AI Active?</td><td class="dtype">boolean</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-bp">BluePage</span><span class="out out-ghl">GHL</span></td></tr>
+    <tr><td>has_smartsite</td><td>SmartSite Active?</td><td class="dtype">boolean</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-ghl">GHL</span></td></tr>
+    <tr><td>has_crm</td><td>Business App / CRM Active?</td><td class="dtype">boolean</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-ghl">GHL</span></td></tr>
+    <tr><td>bluepage_slug</td><td>BluePage Slug</td><td class="dtype">text</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-bp">BluePage</span><span class="out out-ghl">GHL</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>ghl_calendar_id</td><td>GHL Calendar ID</td><td class="dtype">text</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-bp">BluePage</span><span class="out out-chat">Chatbot</span></td></tr>
+    <tr><td>ghl_chatbot_widget_id</td><td>GHL Chat Widget ID</td><td class="dtype">text</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>ghl_review_widget_id</td><td>Review Widget ID</td><td class="dtype">text</td><td><span class="src src-system">SYSTEM</span></td><td><span class="out out-bp">BluePage</span><span class="out out-review">Review Widget</span></td></tr>
+    <tr><td>testimonial_1</td><td>Client Testimonial #1</td><td class="dtype">textarea</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span><span class="out out-kb">KB</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>testimonial_1_author</td><td>Testimonial #1 — Author + Role</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+    <tr><td>testimonial_2</td><td>Client Testimonial #2</td><td class="dtype">textarea</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span><span class="out out-email">Email</span></td></tr>
+    <tr><td>testimonial_2_author</td><td>Testimonial #2 — Author + Role</td><td class="dtype">text</td><td><span class="src src-manual">MANUAL</span></td><td><span class="out out-bp">BluePage</span></td></tr>
+  </table>
+</div>
+
+<!-- S3: OUTPUT MAP -->
+<div class="section" id="s3">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div>
+      <div class="section-title">Field → Output Dependency Map</div>
+      <div class="section-sub">Every output and which fields it pulls from. If a field is missing, this shows what breaks.</div>
+    </div>
+  </div>
+  <div class="dep-grid">
+    <div class="dep-card">
+      <div class="dep-card-title" style="color:var(--blue);">🔵 BluePage</div>
+      <div class="dep-field">business_name <span class="dep-arrow">→</span><span class="dep-dest">Header title</span></div>
+      <div class="dep-field">brand_color_primary <span class="dep-arrow">→</span><span class="dep-dest">All tap colors</span></div>
+      <div class="dep-field">brand_emoji <span class="dep-arrow">→</span><span class="dep-dest">Avatar icon</span></div>
+      <div class="dep-field">phone_business <span class="dep-arrow">→</span><span class="dep-dest">Call tap</span></div>
+      <div class="dep-field">phone_oracle <span class="dep-arrow">→</span><span class="dep-dest">AI Oracle tap</span></div>
+      <div class="dep-field">url_booking <span class="dep-arrow">→</span><span class="dep-dest">Schedule tap</span></div>
+      <div class="dep-field">url_google_review <span class="dep-arrow">→</span><span class="dep-dest">Review modal (5★)</span></div>
+      <div class="dep-field">pay_cashapp <span class="dep-arrow">→</span><span class="dep-dest">Payment overlay</span></div>
+      <div class="dep-field">oracle_faq_1–5 <span class="dep-arrow">→</span><span class="dep-dest">FAQ overlay</span></div>
+      <div class="dep-field">service_area <span class="dep-arrow">→</span><span class="dep-dest">Area overlay chips</span></div>
+      <div class="dep-field">testimonial_1–2 <span class="dep-arrow">→</span><span class="dep-dest">Testimonials overlay</span></div>
+      <div class="dep-field">business_bio <span class="dep-arrow">→</span><span class="dep-dest">About overlay</span></div>
+      <div class="dep-field">bluepage_slug <span class="dep-arrow">→</span><span class="dep-dest">QR code URL</span></div>
+    </div>
+    <div class="dep-card">
+      <div class="dep-card-title" style="color:var(--gold);">🟡 Oracle AI Prompt</div>
+      <div class="dep-field">business_name <span class="dep-arrow">→</span><span class="dep-dest">Agent identity</span></div>
+      <div class="dep-field">oracle_greeting <span class="dep-arrow">→</span><span class="dep-dest">Opening line</span></div>
+      <div class="dep-field">services_list <span class="dep-arrow">→</span><span class="dep-dest">What we offer</span></div>
+      <div class="dep-field">pricing_summary <span class="dep-arrow">→</span><span class="dep-dest">Price responses</span></div>
+      <div class="dep-field">hours_weekdays <span class="dep-arrow">→</span><span class="dep-dest">Hours responses</span></div>
+      <div class="dep-field">oracle_faq_1–5 <span class="dep-arrow">→</span><span class="dep-dest">FAQ answers</span></div>
+      <div class="dep-field">phone_emergency <span class="dep-arrow">→</span><span class="dep-dest">Forward urgent calls</span></div>
+      <div class="dep-field">url_booking <span class="dep-arrow">→</span><span class="dep-dest">Book appointment</span></div>
+      <div class="dep-field">oracle_never_say <span class="dep-arrow">→</span><span class="dep-dest">Guardrails</span></div>
+      <div class="dep-field">brand_tone <span class="dep-arrow">→</span><span class="dep-dest">Voice/personality</span></div>
+    </div>
+    <div class="dep-card">
+      <div class="dep-card-title" style="color:var(--purple);">🟣 Knowledge Base</div>
+      <div class="dep-field">business_name <span class="dep-arrow">→</span><span class="dep-dest">Doc header</span></div>
+      <div class="dep-field">services_list <span class="dep-arrow">→</span><span class="dep-dest">Services section</span></div>
+      <div class="dep-field">pricing_summary <span class="dep-arrow">→</span><span class="dep-dest">Pricing section</span></div>
+      <div class="dep-field">hours_weekdays <span class="dep-arrow">→</span><span class="dep-dest">Hours section</span></div>
+      <div class="dep-field">oracle_faq_1–5 <span class="dep-arrow">→</span><span class="dep-dest">FAQ section</span></div>
+      <div class="dep-field">unique_selling_points <span class="dep-arrow">→</span><span class="dep-dest">USP section</span></div>
+      <div class="dep-field">service_area <span class="dep-arrow">→</span><span class="dep-dest">Coverage section</span></div>
+      <div class="dep-field">licenses_certs <span class="dep-arrow">→</span><span class="dep-dest">Credentials</span></div>
+      <div class="dep-field">business_bio <span class="dep-arrow">→</span><span class="dep-dest">About section</span></div>
+    </div>
+    <div class="dep-card">
+      <div class="dep-card-title" style="color:var(--cyan);">🔵 Cold Call Brief</div>
+      <div class="dep-field">business_name <span class="dep-arrow">→</span><span class="dep-dest">Prospect header</span></div>
+      <div class="dep-field">owner_first_name <span class="dep-arrow">→</span><span class="dep-dest">Opening line</span></div>
+      <div class="dep-field">audit_google_rating <span class="dep-arrow">→</span><span class="dep-dest">PAIN: low reviews</span></div>
+      <div class="dep-field">audit_last_review_date <span class="dep-arrow">→</span><span class="dep-dest">PAIN: stale reviews</span></div>
+      <div class="dep-field">audit_mobile_score <span class="dep-arrow">→</span><span class="dep-dest">PAIN: bad website</span></div>
+      <div class="dep-field">audit_has_booking <span class="dep-arrow">→</span><span class="dep-dest">PAIN: no online booking</span></div>
+      <div class="dep-field">audit_nap_consistent <span class="dep-arrow">→</span><span class="dep-dest">PAIN: NAP mismatch</span></div>
+      <div class="dep-field">audit_competitor_1 <span class="dep-arrow">→</span><span class="dep-dest">Competitive angle</span></div>
+      <div class="dep-field">trade_type <span class="dep-arrow">→</span><span class="dep-dest">Pitch variant selector</span></div>
+    </div>
+    <div class="dep-card">
+      <div class="dep-card-title" style="color:var(--pink);">🌸 HTML Email Templates</div>
+      <div class="dep-field">business_name <span class="dep-arrow">→</span><span class="dep-dest">Subject line + body</span></div>
+      <div class="dep-field">owner_first_name <span class="dep-arrow">→</span><span class="dep-dest">Personalization</span></div>
+      <div class="dep-field">address_city <span class="dep-arrow">→</span><span class="dep-dest">Local relevance</span></div>
+      <div class="dep-field">trade_type <span class="dep-arrow">→</span><span class="dep-dest">Niche copy variant</span></div>
+      <div class="dep-field">audit_google_rating <span class="dep-arrow">→</span><span class="dep-dest">Pain point hook</span></div>
+      <div class="dep-field">unique_selling_points <span class="dep-arrow">→</span><span class="dep-dest">Value statement</span></div>
+      <div class="dep-field">url_booking <span class="dep-arrow">→</span><span class="dep-dest">CTA button</span></div>
+      <div class="dep-field">url_bluepage_live <span class="dep-arrow">→</span><span class="dep-dest">See your page link</span></div>
+    </div>
+    <div class="dep-card">
+      <div class="dep-card-title" style="color:var(--green);">🟢 GHL Chatbot</div>
+      <div class="dep-field">services_list <span class="dep-arrow">→</span><span class="dep-dest">Service questions</span></div>
+      <div class="dep-field">pricing_summary <span class="dep-arrow">→</span><span class="dep-dest">Pricing questions</span></div>
+      <div class="dep-field">hours_weekdays <span class="dep-arrow">→</span><span class="dep-dest">Hours questions</span></div>
+      <div class="dep-field">oracle_faq_1–5 <span class="dep-arrow">→</span><span class="dep-dest">FAQ responses</span></div>
+      <div class="dep-field">url_booking <span class="dep-arrow">→</span><span class="dep-dest">Book now CTA</span></div>
+      <div class="dep-field">phone_business <span class="dep-arrow">→</span><span class="dep-dest">Call us CTA</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- S4: QUESTIONNAIRE -->
+<div class="section" id="s4">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div>
+      <div class="section-title">New 6-Part Client Questionnaire</div>
+      <div class="section-sub">Scraper runs first and pre-fills all AUTO fields. Client only fills MANUAL fields. Target: under 8 minutes to complete.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-success">
+    <div class="callout-icon">✅</div>
+    <div class="callout-text"><strong>Scraper runs before form opens.</strong> Client enters business name + city → scraper auto-fills Groups A, E, G, and I. Client sees pre-filled data and corrects anything wrong. They only manually fill Groups B, C, D, F, H, J. This cuts completion time by ~65%.</div>
+  </div>
+
+  <!-- PART 1 -->
+  <div class="q-section">
+    <div class="q-header">
+      <div class="q-num">1</div>
+      <div class="q-header-text">
+        <div class="q-section-title">Verify Your Business Info</div>
+        <div class="q-section-sub">Pre-filled by our scraper — just confirm or correct</div>
+      </div>
+      <span class="q-mode src src-scrape">AUTO-FILLED</span>
+    </div>
+    <div class="q-body">
+      <div class="q-field"><div class="q-label">Business Name (legal / DBA)<div class="q-field-key">→ business_name</div></div><span class="q-required">REQUIRED</span></div>
+      <div class="q-field"><div class="q-label">Owner First & Last Name<div class="q-field-key">→ owner_first_name + owner_last_name</div></div><span class="q-required">REQUIRED</span></div>
+      <div class="q-field"><div class="q-label">Street Address, City, State, ZIP<div class="q-field-key">→ address_street, address_city, address_state, address_zip</div></div><span class="q-required">REQUIRED</span></div>
+      <div class="q-field"><div class="q-label">Business Phone (main line — used on all directories)<div class="q-field-key">→ phone_business</div></div><span class="q-required">REQUIRED</span></div>
+      <div class="q-field"><div class="q-label">Current Website URL<div class="q-field-key">→ website_url</div></div></div>
+      <div class="q-field"><div class="q-label">Trade / Industry Type<div class="q-field-key">→ trade_type</div></div><span class="q-required">REQUIRED</span></div>
+      <div class="q-field"><div class="q-label">Year Founded / Years in Business<div class="q-field-key">→ founded_year + years_in_business</div></div></div>
+      <div class="q-field"><div class="q-label">Business Hours (Mon–Fri, Sat, Sun)<div class="q-field-key">→ hours_weekdays, hours_saturday, hours_sunday</div></div><span class="q-scrape-tag">SCRAPED</span></div>
+    </div>
+  </div>
+
+  <!-- PART 2 -->
+  <div class="q-section">
+    <div class="q-header">
+      <div class="q-num">2</div>
+      <div class="q-header-text">
+        <div class="q-section-title">Phone Lines & Payments</div>
+        <div class="q-section-sub">Can't be scraped — must come directly from you</div>
+      </div>
+      <span class="q-mode src src-manual">MANUAL ONLY</span>
+    </div>
+    <div class="q-body">
+      <div class="q-field"><div class="q-label">Owner Cell Phone (for BluePage personal tap)<div class="q-field-key">→ phone_owner_cell</div></div></div>
+      <div class="q-field"><div class="q-label">SMS / Text Line Number<div class="q-field-key">→ phone_sms</div></div></div>
+      <div class="q-field"><div class="q-label">Emergency Call Transfer Number<div class="q-field-key">→ phone_emergency</div></div></div>
+      <div class="q-field"><div class="q-label">Cash App Handle (e.g. $businessname)<div class="q-field-key">→ pay_cashapp</div></div></div>
+      <div class="q-field"><div class="q-label">PayPal.me Handle<div class="q-field-key">→ pay_paypal</div></div></div>
+      <div class="q-field"><div class="q-label">Venmo Handle<div class="q-field-key">→ pay_venmo</div></div></div>
+      <div class="q-field"><div class="q-label">Stripe Checkout URL (if they have one)<div class="q-field-key">→ pay_stripe_url</div></div></div>
+      <div class="q-field"><div class="q-label">After-Hours Emergency Service Available?<div class="q-field-key">→ after_hours_available + emergency_policy</div></div><span class="q-required">REQUIRED</span></div>
+    </div>
+  </div>
+
+  <!-- PART 3 -->
+  <div class="q-section">
+    <div class="q-header">
+      <div class="q-num">3</div>
+      <div class="q-header-text">
+        <div class="q-section-title">Services, Pricing & Operations</div>
+        <div class="q-section-sub">Partially pre-filled from website/Yelp — client confirms & fills gaps</div>
+      </div>
+      <span class="q-mode src src-both">BOTH</span>
+    </div>
+    <div class="q-body">
+      <div class="q-field"><div class="q-label">Full List of Services Offered<div class="q-field-key">→ services_list</div></div><span class="q-required">REQUIRED</span><span class="q-scrape-tag">SCRAPED</span></div>
+      <div class="q-field"><div class="q-label">Signature / Most Popular Service<div class="q-field-key">→ services_specialty</div></div></div>
+      <div class="q-field"><div class="q-label">Pricing Model (Flat Rate / Quote / Hourly / Varies)<div class="q-field-key">→ pricing_model</div></div><span class="q-required">REQUIRED</span></div>
+      <div class="q-field"><div class="q-label">Pricing Details or Ranges (what you'd tell a caller)<div class="q-field-key">→ pricing_summary</div></div><span class="q-required">REQUIRED</span></div>
+      <div class="q-field"><div class="q-label">Free Estimates? (Yes/No)<div class="q-field-key">→ free_estimates</div></div><span class="q-required">REQUIRED</span></div>
+      <div class="q-field"><div class="q-label">Accepted Payment Methods (cash, card, financing, etc.)<div class="q-field-key">→ payment_methods</div></div></div>
+      <div class="q-field"><div class="q-label">Licenses & Certifications<div class="q-field-key">→ licenses_certs</div></div><span class="q-scrape-tag">SCRAPED</span></div>
+      <div class="q-field"><div class="q-label">Service Area — all cities you serve<div class="q-field-key">→ service_area</div></div><span class="q-required">REQUIRED</span></div>
+    </div>
+  </div>
+
+  <!-- PART 4 -->
+  <div class="q-section">
+    <div class="q-header">
+      <div class="q-num">4</div>
+      <div class="q-header-text">
+        <div class="q-section-title">Brand, Story & Visual Identity</div>
+        <div class="q-section-sub">100% manual — your voice, your brand, your colors</div>
+      </div>
+      <span class="q-mode src src-manual">MANUAL ONLY</span>
+    </div>
+    <div class="q-body">
+      <div class="q-field"><div class="q-label">Business Origin Story (3–5 sentences — why you started)<div class="q-field-key">→ business_bio</div></div><span class="q-required">REQUIRED</span></div>
+      <div class="q-field"><div class="q-label">Top 3 Things That Make You Different (USPs)<div class="q-field-key">→ unique_selling_points</div></div><span class="q-required">REQUIRED</span></div>
+      <div class="q-field"><div class="q-label">Tagline / Slogan (if you have one)<div class="q-field-key">→ brand_tagline</div></div></div>
+      <div class="q-field"><div class="q-label">Brand Voice / Tone (Friendly / Professional / Expert / No-Nonsense)<div class="q-field-key">→ brand_tone</div></div><span class="q-required">REQUIRED</span></div>
+      <div class="q-field"><div class="q-label">Brand Primary Color (hex code or describe it)<div class="q-field-key">→ brand_color_primary</div></div></div>
+      <div class="q-field"><div class="q-label">Brand Accent Color (hex code or describe it)<div class="q-field-key">→ brand_color_accent</div></div></div>
+      <div class="q-field"><div class="q-label">Trade Emoji (we'll suggest one — you confirm or change)<div class="q-field-key">→ brand_emoji</div></div></div>
+      <div class="q-field"><div class="q-label">Logo URL or Upload (optional)<div class="q-field-key">→ logo_url</div></div></div>
+      <div class="q-field"><div class="q-label">1–2 Customer Testimonials (name, quote, city)<div class="q-field-key">→ testimonial_1 + testimonial_2</div></div></div>
+    </div>
+  </div>
+
+  <!-- PART 5 -->
+  <div class="q-section">
+    <div class="q-header">
+      <div class="q-num">5</div>
+      <div class="q-header-text">
+        <div class="q-section-title">Oracle AI Phone Agent Setup</div>
+        <div class="q-section-sub">Only required if Oracle AI is in their package</div>
+      </div>
+      <span class="q-mode src src-manual">MANUAL ONLY</span>
+    </div>
+    <div class="q-body">
+      <div class="q-field"><div class="q-label">How should Oracle greet callers? (e.g. "Thanks for calling ABC Plumbing, this is Oracle, how can I help?")<div class="q-field-key">→ oracle_greeting</div></div><span class="q-required">REQUIRED FOR ORACLE</span></div>
+      <div class="q-field"><div class="q-label">FAQ #1 — Most common question + exact answer<div class="q-field-key">→ oracle_faq_1 + oracle_faq_1_answer</div></div><span class="q-required">REQUIRED FOR ORACLE</span></div>
+      <div class="q-field"><div class="q-label">FAQ #2 — Question + Answer<div class="q-field-key">→ oracle_faq_2 + oracle_faq_2_answer</div></div></div>
+      <div class="q-field"><div class="q-label">FAQ #3 — Question + Answer<div class="q-field-key">→ oracle_faq_3 + oracle_faq_3_answer</div></div></div>
+      <div class="q-field"><div class="q-label">FAQ #4 — Question + Answer<div class="q-field-key">→ oracle_faq_4 + oracle_faq_4_answer</div></div></div>
+      <div class="q-field"><div class="q-label">FAQ #5 — Question + Answer<div class="q-field-key">→ oracle_faq_5 + oracle_faq_5_answer</div></div></div>
+      <div class="q-field"><div class="q-label">What should Oracle NEVER say to callers?<div class="q-field-key">→ oracle_never_say</div></div></div>
+      <div class="q-field"><div class="q-label">Emergency forwarding number (for urgent calls)<div class="q-field-key">→ phone_emergency</div></div><span class="q-required">REQUIRED FOR ORACLE</span></div>
+    </div>
+  </div>
+
+  <!-- PART 6 -->
+  <div class="q-section">
+    <div class="q-header">
+      <div class="q-num">6</div>
+      <div class="q-header-text">
+        <div class="q-section-title">Review Links & Social Platforms</div>
+        <div class="q-section-sub">Scraper pre-fills what it finds — client confirms or pastes the rest</div>
+      </div>
+      <span class="q-mode src src-both">BOTH</span>
+    </div>
+    <div class="q-body">
+      <div class="q-field"><div class="q-label">Google Write-a-Review Link (the direct link to leave a review)<div class="q-field-key">→ url_google_review</div></div><span class="q-required">REQUIRED</span><span class="q-scrape-tag">SCRAPED</span></div>
+      <div class="q-field"><div class="q-label">Yelp Write-a-Review Link<div class="q-field-key">→ url_yelp_review</div></div><span class="q-scrape-tag">SCRAPED</span></div>
+      <div class="q-field"><div class="q-label">Facebook Page + Reviews Tab URL<div class="q-field-key">→ url_facebook_page + url_facebook_review</div></div><span class="q-scrape-tag">SCRAPED</span></div>
+      <div class="q-field"><div class="q-label">Google Business Profile URL<div class="q-field-key">→ url_google_business</div></div><span class="q-scrape-tag">SCRAPED</span></div>
+      <div class="q-field"><div class="q-label">Instagram Profile URL (optional)<div class="q-field-key">→ url_instagram</div></div></div>
+      <div class="q-field"><div class="q-label">TikTok Profile URL (optional)<div class="q-field-key">→ url_tiktok</div></div></div>
+      <div class="q-field"><div class="q-label">Angi / Thumbtack / BBB Profiles (optional)<div class="q-field-key">→ url_angi, url_thumbtack, url_bbb</div></div><span class="q-scrape-tag">SCRAPED</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- S5: WEBHOOK MAPPING -->
+<div class="section" id="s5">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div>
+      <div class="section-title">GHL Webhook Mapping</div>
+      <div class="section-sub">Exact field key → GHL custom field mapping. Form submits to GHL webhook. Every key must match exactly or data is lost.</div>
+    </div>
+  </div>
+  <div class="callout callout-warn">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-text"><strong>GHL Location ID: Frybhc0vA1PWLTHoTIR8</strong> — All webhooks post to this location. Custom fields must be created in Settings → Custom Fields → Contacts using the exact key names in the table above before any form is built.</div>
+  </div>
+  <div class="webhook-block">
+    <div class="webhook-title">Onboarding Form → GHL Contact</div>
+    <div class="webhook-sub">Fires on form submit. Creates or updates contact. Tags auto-applied.</div>
+    <div class="webhook-map"><div class="wm-from">form.business_name</div><div class="wm-arrow">→</div><div class="wm-to">contact.company_name</div></div>
+    <div class="webhook-map"><div class="wm-from">form.owner_first_name</div><div class="wm-arrow">→</div><div class="wm-to">contact.first_name</div></div>
+    <div class="webhook-map"><div class="wm-from">form.owner_last_name</div><div class="wm-arrow">→</div><div class="wm-to">contact.last_name</div></div>
+    <div class="webhook-map"><div class="wm-from">form.email_owner</div><div class="wm-arrow">→</div><div class="wm-to">contact.email</div></div>
+    <div class="webhook-map"><div class="wm-from">form.phone_business</div><div class="wm-arrow">→</div><div class="wm-to">contact.phone</div></div>
+    <div class="webhook-map"><div class="wm-from">form.address_city</div><div class="wm-arrow">→</div><div class="wm-to">contact.city</div></div>
+    <div class="webhook-map"><div class="wm-from">form.address_state</div><div class="wm-arrow">→</div><div class="wm-to">contact.state</div></div>
+    <div class="webhook-map"><div class="wm-from">form.[all custom fields]</div><div class="wm-arrow">→</div><div class="wm-to">custom_fields.[matching key]</div></div>
+    <div class="webhook-map"><div class="wm-from">form.trade_type</div><div class="wm-arrow">→</div><div class="wm-to">contact.tags + "501-client"</div></div>
+  </div>
+  <div class="webhook-block">
+    <div class="webhook-title">Scraper → GHL Contact (Pre-Onboarding)</div>
+    <div class="webhook-sub">Fires when Chrome plugin scrapes a prospect. Creates prospect contact with audit data. Triggers cold call brief generation.</div>
+    <div class="webhook-map"><div class="wm-from">scraper.business_name</div><div class="wm-arrow">→</div><div class="wm-to">contact.company_name</div></div>
+    <div class="webhook-map"><div class="wm-from">scraper.google_rating</div><div class="wm-arrow">→</div><div class="wm-to">custom.audit_google_rating</div></div>
+    <div class="webhook-map"><div class="wm-from">scraper.review_count</div><div class="wm-arrow">→</div><div class="wm-to">custom.audit_google_reviews</div></div>
+    <div class="webhook-map"><div class="wm-from">scraper.mobile_score</div><div class="wm-arrow">→</div><div class="wm-to">custom.audit_mobile_score</div></div>
+    <div class="webhook-map"><div class="wm-from">scraper.*</div><div class="wm-arrow">→</div><div class="wm-to">tag: "prospect" + "needs-cold-call"</div></div>
+  </div>
+  <div class="webhook-block">
+    <div class="webhook-title">BluePage Deploy → GHL Contact Update</div>
+    <div class="webhook-sub">Fires when BluePage goes live via dashboard. Updates system fields on contact.</div>
+    <div class="webhook-map"><div class="wm-from">deploy.slug</div><div class="wm-arrow">→</div><div class="wm-to">custom.bluepage_slug</div></div>
+    <div class="webhook-map"><div class="wm-from">deploy.live_url</div><div class="wm-arrow">→</div><div class="wm-to">custom.url_bluepage_live</div></div>
+    <div class="webhook-map"><div class="wm-from">deploy.timestamp</div><div class="wm-arrow">→</div><div class="wm-to">custom.go_live_date</div></div>
+    <div class="webhook-map"><div class="wm-from">deploy.*</div><div class="wm-arrow">→</div><div class="wm-to">tag: "bluepage-live"</div></div>
+  </div>
+</div>
+
+<!-- S6: SCRAPER COVERAGE -->
+<div class="section" id="s6">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <div>
+      <div class="section-title">Scraper Field Coverage</div>
+      <div class="section-sub">What the Chrome plugin can pull automatically and from which source.</div>
+    </div>
+  </div>
+  <table class="ftable">
+    <tr><th>Field</th><th>Google Business Profile</th><th>Yelp</th><th>Client Website</th><th>Facebook</th><th>PageSpeed API</th></tr>
+    <tr><td>business_name</td><td><span class="src src-scrape">✓</span></td><td><span class="src src-scrape">✓</span></td><td><span class="src src-scrape">✓</span></td><td><span class="src src-scrape">✓</span></td><td>—</td></tr>
+    <tr><td>phone_business</td><td><span class="src src-scrape">✓</span></td><td><span class="src src-scrape">✓</span></td><td><span class="src src-scrape">✓</span></td><td><span class="src src-scrape">✓</span></td><td>—</td></tr>
+    <tr><td>address_*</td><td><span class="src src-scrape">✓</span></td><td><span class="src src-scrape">✓</span></td><td><span class="src src-scrape">partial</span></td><td><span class="src src-scrape">partial</span></td><td>—</td></tr>
+    <tr><td>hours_*</td><td><span class="src src-scrape">✓</span></td><td><span class="src src-scrape">✓</span></td><td><span class="src src-scrape">partial</span></td><td>—</td><td>—</td></tr>
+    <tr><td>website_url</td><td><span class="src src-scrape">✓</span></td><td><span class="src src-scrape">✓</span></td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td>audit_google_rating</td><td><span class="src src-scrape">✓</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td>audit_google_reviews</td><td><span class="src src-scrape">✓</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td>audit_yelp_rating</td><td>—</td><td><span class="src src-scrape">✓</span></td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td>url_google_review</td><td><span class="src src-scrape">✓</span></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td>url_yelp_review</td><td>—</td><td><span class="src src-scrape">✓</span></td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td>url_facebook_page</td><td>—</td><td>—</td><td><span class="src src-scrape">partial</span></td><td><span class="src src-scrape">✓</span></td><td>—</td></tr>
+    <tr><td>services_list</td><td><span class="src src-scrape">partial</span></td><td><span class="src src-scrape">partial</span></td><td><span class="src src-scrape">✓</span></td><td>—</td><td>—</td></tr>
+    <tr><td>audit_mobile_score</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="src src-scrape">✓</span></td></tr>
+    <tr><td>audit_has_booking</td><td>—</td><td>—</td><td><span class="src src-scrape">✓</span></td><td>—</td><td>—</td></tr>
+    <tr><td>audit_nap_consistent</td><td colspan="5" style="color:var(--cyan);font-family:var(--mono);font-size:11px;">Computed: compare GBP vs Yelp vs website — flag any mismatch</td></tr>
+    <tr><td>trade_type</td><td><span class="src src-scrape">✓ category</span></td><td><span class="src src-scrape">✓ category</span></td><td>—</td><td>—</td><td>—</td></tr>
+  </table>
+</div>
+
+<!-- S7: NAMING CONVENTIONS -->
+<div class="section" id="s7">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <div>
+      <div class="section-title">Naming Conventions — Locked Forever</div>
+      <div class="section-sub">These patterns apply everywhere. Breaking them breaks automation.</div>
+    </div>
+  </div>
+  <table class="conv-table">
+    <tr style="background:rgba(0,100,255,0.06);"><td style="color:var(--blue);font-weight:800;">ENTITY</td><td style="color:var(--blue);font-weight:800;">PATTERN</td><td style="color:var(--blue);font-weight:800;">EXAMPLE</td></tr>
+    <tr><td>GHL custom field key</td><td>snake_case, lowercase</td><td>phone_business, brand_color_primary</td></tr>
+    <tr><td>BluePage slug</td><td>kebab-case, lowercase, no special chars</td><td>conway-plumbing-co</td></tr>
+    <tr><td>BluePage live URL</td><td>501.business/[slug]</td><td>501.business/conway-plumbing-co</td></tr>
+    <tr><td>Cloudflare Pages project</td><td>501-[slug]</td><td>501-conway-plumbing-co</td></tr>
+    <tr><td>GHL contact tag (client)</td><td>501-client, [trade_type], bluepage-live</td><td>501-client, plumbing, bluepage-live</td></tr>
+    <tr><td>GHL contact tag (prospect)</td><td>prospect, [trade_type], needs-cold-call</td><td>prospect, hvac, needs-cold-call</td></tr>
+    <tr><td>GHL pipeline stage (new)</td><td>Scraper Lead → Contacted → Onboarding → Live → Recurring</td><td>—</td></tr>
+    <tr><td>Knowledge base filename</td><td>[slug]-kb.md</td><td>conway-plumbing-co-kb.md</td></tr>
+    <tr><td>Oracle prompt filename</td><td>[slug]-oracle-prompt.txt</td><td>conway-plumbing-co-oracle-prompt.txt</td></tr>
+    <tr><td>Email template ID</td><td>[trade]-[type]-[variant]</td><td>plumbing-cold-v1, hvac-followup-v2</td></tr>
+    <tr><td>Color hex storage</td><td>Always 6-digit lowercase hex with #</td><td>#2d8fff not #2D8FFF or #29f</td></tr>
+    <tr><td>Phone number storage</td><td>(XXX) XXX-XXXX format</td><td>(501) 663-3200</td></tr>
+    <tr><td>Date storage in GHL</td><td>ISO 8601: YYYY-MM-DD</td><td>2026-03-30</td></tr>
+  </table>
+</div>
+
+<!-- S8: FULL AUTOMATION FLOW -->
+<div class="section" id="s8">
+  <div class="section-header">
+    <div class="section-num">08</div>
+    <div>
+      <div class="section-title">Full End-to-End Automation Flow</div>
+      <div class="section-sub">From prospect discovery to live client — every step, what triggers it, what it produces.</div>
+    </div>
+  </div>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-dot">1</div>
+      <div class="flow-content">
+        <div class="flow-title">Scraper Runs on Prospect</div>
+        <div class="flow-desc">You visit a prospect's GBP/Yelp/website in Chrome. One click — plugin scrapes all AUTO fields, computes NAP consistency, pulls audit data. Fires GHL webhook → creates prospect contact + tags. Generates cold call brief PDF automatically.</div>
+        <div class="flow-tag"><span class="src src-scrape">AUTO</span><span class="out out-cold">Cold Call Brief Generated</span><span class="out out-ghl">GHL Contact Created</span></div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">2</div>
+      <div class="flow-content">
+        <div class="flow-title">You Make the Cold Call</div>
+        <div class="flow-desc">Brief is on your screen. You know their rating (3.2⭐), last review (4 months ago), mobile score (38/100), and that their NAP is inconsistent across 3 platforms before they say hello. You close. They agree to onboard.</div>
+        <div class="flow-tag"><span class="src src-manual">YOU</span></div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">3</div>
+      <div class="flow-content">
+        <div class="flow-title">Onboarding Form Sent to Client</div>
+        <div class="flow-desc">You send client the 501.business/gold link. Form auto-loads with their scraped data pre-filled. They confirm/correct Part 1, then fill Parts 2–6 manually. Takes ~8 minutes. On submit → GHL webhook fires → all 60+ custom fields populate.</div>
+        <div class="flow-tag"><span class="src src-both">AUTO + CLIENT</span><span class="out out-ghl">All Fields Populated in GHL</span></div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">4</div>
+      <div class="flow-content">
+        <div class="flow-title">Cowork Triggers: KB Compile + BluePage Draft</div>
+        <div class="flow-desc">GHL webhook receipt triggers Cowork. Cowork pulls all custom fields → compiles knowledge base document → generates Oracle prompt → creates BluePage HTML from master template with all fields injected → saves as draft → sends you a preview link + approval request.</div>
+        <div class="flow-tag"><span class="src src-system">COWORK</span><span class="out out-kb">KB Compiled</span><span class="out out-oracle">Oracle Prompt Generated</span><span class="out out-bp">BluePage Draft Created</span></div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">5</div>
+      <div class="flow-content">
+        <div class="flow-title">You Review + Approve (2 minutes)</div>
+        <div class="flow-desc">You get a text: "New client [Business Name] — BluePage draft ready. Reply YES to deploy or EDIT to open dashboard." You review the preview link. Colors match. Taps are right. You reply YES.</div>
+        <div class="flow-tag"><span class="src src-manual">YOU</span></div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">6</div>
+      <div class="flow-content">
+        <div class="flow-title">Deploy Pipeline Fires</div>
+        <div class="flow-desc">Cowork deploys BluePage to Cloudflare Pages → live at 501.business/[slug] → updates GHL contact with live URL, go-live date, tags "bluepage-live" → triggers GHL chatbot creation with KB injected → configures review widget with their review URLs → sends client welcome email with their live page link.</div>
+        <div class="flow-tag"><span class="src src-system">COWORK + AUTO</span><span class="out out-bp">Page Live</span><span class="out out-chat">Chatbot Configured</span><span class="out out-review">Review Widget Live</span><span class="out out-email">Welcome Email Sent</span></div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">7</div>
+      <div class="flow-content">
+        <div class="flow-title">Oracle AI Setup (if in package)</div>
+        <div class="flow-desc">Generated Oracle prompt pushed to Retell AI (or GHL Voice AI) → phone number provisioned → assigned to client → tested → client notified their AI phone agent is live. This step currently requires ~10 minutes of manual Retell/GHL setup but can be templated to near-zero touch.</div>
+        <div class="flow-tag"><span class="src src-system">SEMI-AUTO</span><span class="out out-oracle">Oracle Active</span></div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-dot">8</div>
+      <div class="flow-content">
+        <div class="flow-title">Ongoing Automation — Monthly</div>
+        <div class="flow-desc">Cowork re-scrapes client's Google/Yelp monthly → updates audit fields → flags any NAP drift → generates monthly report (new reviews, rating change, page visits) → sends to client → copies you. No action needed unless something breaks.</div>
+        <div class="flow-tag"><span class="src src-system">COWORK MONTHLY</span><span class="out out-ghl">Audit Fields Updated</span><span class="out out-email">Client Report Sent</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S9: COWORK MATRIX -->
+<div class="section" id="s9">
+  <div class="section-header">
+    <div class="section-num">09</div>
+    <div>
+      <div class="section-title">Cowork Responsibility Matrix</div>
+      <div class="section-sub">What Cowork owns permanently vs. what stays with you. This is the design for your normal life.</div>
+    </div>
+  </div>
+  <div class="cowork-grid">
+    <div class="cowork-card" style="border-color:rgba(34,197,94,0.2);">
+      <div class="cowork-owner" style="color:var(--green);">🤖 Cowork Owns — Zero Touch</div>
+      <div class="cowork-item"><span class="ci">🔄</span>Re-scrape clients monthly, update audit fields, flag NAP drift</div>
+      <div class="cowork-item"><span class="ci">📋</span>Compile KB from GHL fields on new client submission</div>
+      <div class="cowork-item"><span class="ci">🏗️</span>Build BluePage draft from master template + GHL fields</div>
+      <div class="cowork-item"><span class="ci">🚀</span>Deploy approved page to Cloudflare, update GHL with live URL</div>
+      <div class="cowork-item"><span class="ci">🤖</span>Generate Oracle prompt from KB + push to Retell</div>
+      <div class="cowork-item"><span class="ci">💬</span>Configure GHL chatbot with KB on client go-live</div>
+      <div class="cowork-item"><span class="ci">📊</span>Generate + send monthly report to each active client</div>
+      <div class="cowork-item"><span class="ci">⭐</span>Draft response to new reviews, send after 24hr if no action</div>
+      <div class="cowork-item"><span class="ci">📬</span>Send follow-up email sequences based on pipeline stage</div>
+      <div class="cowork-item"><span class="ci">📝</span>Create cold call brief from scraper data automatically</div>
+      <div class="cowork-item"><span class="ci">🏷️</span>Apply GHL tags and move pipeline stages on trigger</div>
+    </div>
+    <div class="cowork-card" style="border-color:rgba(249,115,22,0.2);">
+      <div class="cowork-owner" style="color:var(--orange);">👤 You Own — Cannot Delegate</div>
+      <div class="cowork-item"><span class="ci">📞</span>All sales calls and cold outreach</div>
+      <div class="cowork-item"><span class="ci">✅</span>Final approval before any BluePage goes live</div>
+      <div class="cowork-item"><span class="ci">🤝</span>Client relationship check-ins and strategy calls</div>
+      <div class="cowork-item"><span class="ci">🎨</span>Color/brand decisions when client has no preference</div>
+      <div class="cowork-item"><span class="ci">💰</span>Pricing decisions and upsell conversations</div>
+      <div class="cowork-item"><span class="ci">🧠</span>Anything requiring real judgment or relationship trust</div>
+      <div class="cowork-item"><span class="ci">🔑</span>GHL account-level settings and API key management</div>
+    </div>
+  </div>
+  <div class="callout callout-info" style="margin-top:16px;">
+    <div class="callout-icon">💡</div>
+    <div class="callout-text"><strong>The approval protocol:</strong> Every Cowork action that touches a client sends you a single text notification formatted as: <code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;font-family:var(--mono);">[ACTION NEEDED] Client: [Name] | [What] | Link: [url] | Reply YES / EDIT / SKIP</code>. If you don't reply in 24 hours, Cowork proceeds. That's your out — silence = approval for low-risk actions, silence = pause for anything touching client-facing copy or brand.</div>
+  </div>
+</div>
+
+<!-- S10: BUILD ORDER -->
+<div class="section" id="s10">
+  <div class="section-header">
+    <div class="section-num">10</div>
+    <div>
+      <div class="section-title">Build Order Reference</div>
+      <div class="section-sub">The sequence that prevents rework. Every item is a dependency for the items below it.</div>
+    </div>
+  </div>
+  <table class="ftable">
+    <tr><th>Phase</th><th>Item</th><th>Depends On</th><th>Time Estimate</th><th>Who Builds</th></tr>
+    <tr><td style="color:var(--dim);">Phase 0</td><td>This document — locked ✓</td><td>Nothing</td><td>Done</td><td style="color:var(--green);">Complete</td></tr>
+    <tr><td style="color:var(--blue);">Phase 1A</td><td>Create all 60+ GHL custom fields with exact keys</td><td>Phase 0</td><td>2–3 hrs</td><td style="color:var(--orange);">You in GHL</td></tr>
+    <tr><td style="color:var(--blue);">Phase 1B</td><td>Chrome Scraper Plugin (Manifest V3)</td><td>Phase 1A</td><td>1–2 days</td><td style="color:var(--purple);">Claude builds</td></tr>
+    <tr><td style="color:var(--blue);">Phase 1C</td><td>Updated Intake Form (6-part, scraper pre-fill)</td><td>Phase 1A + 1B</td><td>1 day</td><td style="color:var(--purple);">Claude builds</td></tr>
+    <tr><td style="color:var(--blue);">Phase 1D</td><td>GHL Webhook — form → contact + all custom fields</td><td>Phase 1A + 1C</td><td>2–3 hrs</td><td style="color:var(--purple);">Claude builds</td></tr>
+    <tr><td style="color:var(--teal);">Phase 2A</td><td>Master Template (all blocks, all placeholders)</td><td>Phase 0</td><td>1 day</td><td style="color:var(--purple);">Claude builds</td></tr>
+    <tr><td style="color:var(--teal);">Phase 2B</td><td>Dashboard UI (editable blocks + live preview)</td><td>Phase 2A + Phase 1</td><td>3–4 days</td><td style="color:var(--purple);">Claude builds</td></tr>
+    <tr><td style="color:var(--teal);">Phase 2C</td><td>Color wheel + eyedropper + palette system</td><td>Phase 2B</td><td>1 day</td><td style="color:var(--purple);">Claude builds</td></tr>
+    <tr><td style="color:var(--teal);">Phase 2D</td><td>Draft system + Cloudflare deploy pipeline</td><td>Phase 2B</td><td>1 day</td><td style="color:var(--purple);">Claude builds</td></tr>
+    <tr><td style="color:var(--purple);">Phase 3A</td><td>KB Auto-Compiler (GHL fields → markdown doc)</td><td>Phase 1 complete</td><td>4–6 hrs</td><td style="color:var(--purple);">Claude builds</td></tr>
+    <tr><td style="color:var(--purple);">Phase 3B</td><td>Oracle Prompt Generator</td><td>Phase 3A</td><td>3–4 hrs</td><td style="color:var(--purple);">Claude builds</td></tr>
+    <tr><td style="color:var(--purple);">Phase 3C</td><td>GHL Chatbot KB injection workflow</td><td>Phase 3A</td><td>3–4 hrs</td><td style="color:var(--purple);">Claude + You in GHL</td></tr>
+    <tr><td style="color:var(--purple);">Phase 3D</td><td>Review widget auto-config from review URLs</td><td>Phase 1 complete</td><td>2–3 hrs</td><td style="color:var(--purple);">Claude + You in GHL</td></tr>
+    <tr><td style="color:var(--gold);">Phase 4A</td><td>Cold Call Brief Generator (scraper → PDF brief)</td><td>Phase 1B complete</td><td>4–6 hrs</td><td style="color:var(--purple);">Claude builds</td></tr>
+    <tr><td style="color:var(--gold);">Phase 4B</td><td>HTML Email Template Engine + GHL merge tags</td><td>Phase 1 complete</td><td>2 days</td><td style="color:var(--purple);">Claude builds</td></tr>
+    <tr><td style="color:var(--gold);">Phase 4C</td><td>Email sequence builder + GHL automation</td><td>Phase 4B</td><td>1 day</td><td style="color:var(--purple);">Claude + You in GHL</td></tr>
+    <tr><td style="color:var(--red);">Phase 5</td><td>Cowork trigger/action definitions + parallel run</td><td>Phases 1–4 complete</td><td>2 weeks</td><td style="color:var(--orange);">You + Cowork</td></tr>
+  </table>
+
+  <div class="callout callout-success" style="margin-top:20px;">
+    <div class="callout-icon">🎯</div>
+    <div class="callout-text"><strong>Your first action after reading this document:</strong> Open GHL → Settings → Custom Fields → Contacts → create every field in Group A through Group J using the exact key names in Section 2. This takes 2–3 hours and unlocks every other phase. Nothing can be built until these exist. Say the word and Claude will give you the exact GHL setup checklist as a step-by-step guide.</div>
+  </div>
+</div>
+
+<div style="text-align:center;padding:32px 0 8px;border-top:1px solid var(--border);margin-top:40px;">
+  <div style="font-family:var(--mono);font-size:10px;color:var(--dim);">501 Digital Marketing Agency · Phase 0 Master Blueprint v1.0 · Conway, AR</div>
+  <div style="font-family:var(--mono);font-size:10px;color:rgba(0,140,255,0.3);margin-top:4px;">DO NOT MODIFY WITHOUT UPDATING ALL DEPENDENT SYSTEMS</div>
+</div>
+
+</body>
+</html>

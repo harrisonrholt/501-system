@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Let's Build Your System — 501 Digital Marketing</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;background:#f8f9fa;color:#333;min-height:100vh}.header{background:#fff;border-bottom:3px solid #1c59e9;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.06)}.header-brand{font-weight:900;font-size:18px;color:#1a1a1a;letter-spacing:-0.5px}.header-contact{font-size:13px;color:#888}.progress-bar{height:4px;background:#eee;margin-bottom:0}.progress-fill{height:4px;background:#1c59e9;transition:width 0.4s ease}.container{max-width:680px;margin:40px auto;padding:0 20px 60px}.hero{background:#fff;border-radius:14px;padding:32px;margin-bottom:28px;box-shadow:0 2px 12px rgba(0,0,0,0.06);border-left:4px solid #1c59e9}.hero-title{font-size:26px;font-weight:900;color:#1a1a1a;margin-bottom:10px;line-height:1.2}.hero-msg{font-size:14px;color:#666;line-height:1.8}.form-card{background:#fff;border-radius:14px;padding:32px;box-shadow:0 2px 12px rgba(0,0,0,0.06)}.success-msg{display:none;text-align:center;padding:60px 30px;background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,0.06)}.success-icon{font-size:56px;margin-bottom:16px}.success-title{font-size:24px;font-weight:900;color:#1a1a1a;margin-bottom:8px}.success-sub{font-size:14px;color:#666}</style></head><body>
+<div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:17%"></div></div>
+<div class="header"><div class="header-brand">501 Digital Marketing</div><div class="header-contact">Harrison Holt · (501) 772-8275</div></div>
+<div class="container">
+  <div class="hero">
+    <div class="hero-title">Let's Build Your System</div>
+    <div class="hero-msg">You're in. I'm excited to build your system.<br><br>The more you fill in below, the better I can tailor everything to your exact business — your services, your market, your voice. This takes about 10 minutes and it's the foundation of everything I'll build for you.</div>
+  </div>
+  <div class="form-card">
+    <form id="intake-form" onsubmit="handleIntakeSubmit(event)">
+      
+<div class="intake-section" id="section-0" style="">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #1c59e922">
+    <span style="font-size:28px">🏢</span>
+    <div>
+      <div style="font-size:11px;color:#1c59e9;font-family:Arial,sans-serif;font-weight:700;letter-spacing:2px;text-transform:uppercase">SECTION 1 OF 6</div>
+      <div style="font-size:20px;font-weight:800;color:#1a1a1a">Business Basics</div>
+    </div>
+  </div>
+  <div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Business Name <span style="color:#1c59e9">*</span></label>
+    <input type="text" name="sb-name" id="sb-name" placeholder="Mike's Plumbing LLC" required style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Owner Name <span style="color:#1c59e9">*</span></label>
+    <input type="text" name="sb-owner" id="sb-owner" placeholder="Mike Johnson" required style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Business Phone <span style="color:#1c59e9">*</span></label>
+    <input type="tel" name="sb-phone" id="sb-phone" placeholder="(501) 555-0000" required style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Business Email <span style="color:#1c59e9">*</span></label>
+    <input type="email" name="sb-email" id="sb-email" placeholder="mike@mikesplumbing.com" required style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Current Website (if any)</label>
+    <input type="url" name="sb-website" id="sb-website" placeholder="https://mikesplumbing.com"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">City <span style="color:#1c59e9">*</span></label>
+    <input type="text" name="sb-city" id="sb-city" placeholder="Conway" required style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">State</label>
+    <input type="text" name="sb-state" id="sb-state" placeholder="AR"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Trade / Industry <span style="color:#1c59e9">*</span></label>
+    <input type="text" name="sb-trade" id="sb-trade" placeholder="Plumbing" required style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Years in Business</label>
+    <input type="number" name="sb-years" id="sb-years" placeholder="8"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div>
+  <div style="display:flex;gap:12px;margin-top:24px">
+    
+    <button type="button" onclick="nextSection(0)" style="flex:2;padding:14px;background:#1c59e9;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">Continue →</button>
+  </div>
+</div>
+<div class="intake-section" id="section-1" style="display:none">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #1c59e922">
+    <span style="font-size:28px">⚙️</span>
+    <div>
+      <div style="font-size:11px;color:#1c59e9;font-family:Arial,sans-serif;font-weight:700;letter-spacing:2px;text-transform:uppercase">SECTION 2 OF 6</div>
+      <div style="font-size:20px;font-weight:800;color:#1a1a1a">Services & Pricing</div>
+    </div>
+  </div>
+  <div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Services You Offer (one per line) <span style="color:#1c59e9">*</span></label>
+    <textarea name="sb-services" id="sb-services" rows="3" placeholder="Water heater installation
+Drain cleaning
+Leak repair
+Emergency plumbing" required style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;line-height:1.6;resize:vertical;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'"></textarea>
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Your Specialty / What You're Best At</label>
+    <input type="text" name="sb-specialty" id="sb-specialty" placeholder="Emergency plumbing and water heaters"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Do You Offer Emergency / After-Hours Service?</label>
+    <select name="sb-emergency" id="sb-emergency" style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;background:#fff;box-sizing:border-box"><option value="Yes — 24/7">Yes — 24/7</option><option value="Yes — select hours">Yes — select hours</option><option value="No">No</option></select>
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Payment Methods You Accept</label>
+    <input type="text" name="sb-payment" id="sb-payment" placeholder="Cash, check, credit cards, Zelle"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Licenses, Certifications, Insurance</label>
+    <input type="text" name="sb-certs" id="sb-certs" placeholder="AR Plumbing License #12345 — Fully Insured"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div>
+  <div style="display:flex;gap:12px;margin-top:24px">
+    <button type="button" onclick="prevSection(1)" style="flex:1;padding:14px;background:#f5f5f5;color:#555;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">← Back</button>
+    <button type="button" onclick="nextSection(1)" style="flex:2;padding:14px;background:#1c59e9;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">Continue →</button>
+  </div>
+</div>
+<div class="intake-section" id="section-2" style="display:none">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #1c59e922">
+    <span style="font-size:28px">✨</span>
+    <div>
+      <div style="font-size:11px;color:#1c59e9;font-family:Arial,sans-serif;font-weight:700;letter-spacing:2px;text-transform:uppercase">SECTION 3 OF 6</div>
+      <div style="font-size:20px;font-weight:800;color:#1a1a1a">Your Story & Brand</div>
+    </div>
+  </div>
+  <div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">How did you start this business? (1-2 sentences)</label>
+    <textarea name="sb-story" id="sb-story" rows="3" placeholder="I started Mike's Plumbing after 15 years working for larger companies — I wanted to give customers the personal service they deserve."  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;line-height:1.6;resize:vertical;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'"></textarea>
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">What makes you different from competitors? <span style="color:#1c59e9">*</span></label>
+    <textarea name="sb-usps" id="sb-usps" rows="3" placeholder="Family owned, upfront pricing, always on time, same-day service" required style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;line-height:1.6;resize:vertical;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'"></textarea>
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Do you have a tagline? (or what would you want?)</label>
+    <input type="text" name="sb-tagline" id="sb-tagline" placeholder="Conway's Most Trusted Plumber"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">How would you describe your brand personality?</label>
+    <select name="sb-tone" id="sb-tone" style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;background:#fff;box-sizing:border-box"><option value="Professional & trustworthy">Professional & trustworthy</option><option value="Friendly & local">Friendly & local</option><option value="Bold & confident">Bold & confident</option><option value="Traditional & established">Traditional & established</option></select>
+  </div>
+  <div style="display:flex;gap:12px;margin-top:24px">
+    <button type="button" onclick="prevSection(2)" style="flex:1;padding:14px;background:#f5f5f5;color:#555;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">← Back</button>
+    <button type="button" onclick="nextSection(2)" style="flex:2;padding:14px;background:#1c59e9;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">Continue →</button>
+  </div>
+</div>
+<div class="intake-section" id="section-3" style="display:none">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #1c59e922">
+    <span style="font-size:28px">🎯</span>
+    <div>
+      <div style="font-size:11px;color:#1c59e9;font-family:Arial,sans-serif;font-weight:700;letter-spacing:2px;text-transform:uppercase">SECTION 4 OF 6</div>
+      <div style="font-size:20px;font-weight:800;color:#1a1a1a">Goals & Target Customer</div>
+    </div>
+  </div>
+  <div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Who is your ideal customer?</label>
+    <input type="text" name="sb-target" id="sb-target" placeholder="Homeowners in Conway, age 30-65, own their home"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">What's the #1 problem your customers have? <span style="color:#1c59e9">*</span></label>
+    <input type="text" name="sb-pain" id="sb-pain" placeholder="Burst pipes and no heat emergencies — need immediate help" required style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Who are your main competitors?</label>
+    <input type="text" name="sb-competitors" id="sb-competitors" placeholder="Roto-Rooter, ABC Plumbing"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">How many Google reviews do you currently have?</label>
+    <input type="number" name="sb-reviews" id="sb-reviews" placeholder="23"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Your current star rating</label>
+    <input type="text" name="sb-stars" id="sb-stars" placeholder="4.7"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Monthly marketing budget (approximate)</label>
+    <select name="sb-budget" id="sb-budget" style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;background:#fff;box-sizing:border-box"><option value="Under $200">Under $200</option><option value="$200-$500">$200-$500</option><option value="$500-$1000">$500-$1000</option><option value="$1000+">$1000+</option></select>
+  </div>
+  <div style="display:flex;gap:12px;margin-top:24px">
+    <button type="button" onclick="prevSection(3)" style="flex:1;padding:14px;background:#f5f5f5;color:#555;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">← Back</button>
+    <button type="button" onclick="nextSection(3)" style="flex:2;padding:14px;background:#1c59e9;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">Continue →</button>
+  </div>
+</div>
+<div class="intake-section" id="section-4" style="display:none">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #1c59e922">
+    <span style="font-size:28px">📱</span>
+    <div>
+      <div style="font-size:11px;color:#1c59e9;font-family:Arial,sans-serif;font-weight:700;letter-spacing:2px;text-transform:uppercase">SECTION 5 OF 6</div>
+      <div style="font-size:20px;font-weight:800;color:#1a1a1a">Online Presence</div>
+    </div>
+  </div>
+  <div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Facebook Page URL</label>
+    <input type="url" name="sb-facebook" id="sb-facebook" placeholder="https://facebook.com/mikesplumbing"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Instagram Handle</label>
+    <input type="text" name="sb-instagram" id="sb-instagram" placeholder="@mikesplumbing"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Google Business Profile URL (if you have it)</label>
+    <input type="url" name="sb-gbp" id="sb-gbp" placeholder="https://g.page/mikesplumbing"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Do you have before/after photos we can use?</label>
+    <select name="sb-photos" id="sb-photos" style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;background:#fff;box-sizing:border-box"><option value="Yes — lots of them">Yes — lots of them</option><option value="Yes — a few">Yes — a few</option><option value="No — need to take some">No — need to take some</option></select>
+  </div>
+  <div style="display:flex;gap:12px;margin-top:24px">
+    <button type="button" onclick="prevSection(4)" style="flex:1;padding:14px;background:#f5f5f5;color:#555;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">← Back</button>
+    <button type="button" onclick="nextSection(4)" style="flex:2;padding:14px;background:#1c59e9;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">Continue →</button>
+  </div>
+</div>
+<div class="intake-section" id="section-5" style="display:none">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #1c59e922">
+    <span style="font-size:28px">🔮</span>
+    <div>
+      <div style="font-size:11px;color:#1c59e9;font-family:Arial,sans-serif;font-weight:700;letter-spacing:2px;text-transform:uppercase">SECTION 6 OF 6</div>
+      <div style="font-size:20px;font-weight:800;color:#1a1a1a">Oracle AI Phone Agent</div>
+    </div>
+  </div>
+  <div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">What should Oracle always say about your business?</label>
+    <textarea name="sb-oracle" id="sb-oracle" rows="3" placeholder="We're available 24/7 for emergencies, all work is fully licensed and insured, we give free written estimates before starting any job."  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;line-height:1.6;resize:vertical;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'"></textarea>
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Top 5 questions customers ask (one per line)</label>
+    <textarea name="sb-faqs" id="sb-faqs" rows="3" placeholder="How much does a water heater cost?
+Do you come out on weekends?
+Are you licensed?"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;line-height:1.6;resize:vertical;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'"></textarea>
+  </div><div style="margin-bottom:16px">
+    <label style="display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:5px">Phone number Oracle should transfer emergencies to</label>
+    <input type="tel" name="sb-transfer" id="sb-transfer" placeholder="(501) 555-0000"  style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box" onfocus="this.style.borderColor='#1c59e9'" onblur="this.style.borderColor='#ddd'">
+  </div>
+  <div style="display:flex;gap:12px;margin-top:24px">
+    <button type="button" onclick="prevSection(5)" style="flex:1;padding:14px;background:#f5f5f5;color:#555;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">← Back</button>
+    <button type="submit" style="flex:2;padding:14px;background:#1c59e9;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer">Submit My Information ✓</button>
+  </div>
+</div>
+    </form>
+    <div class="success-msg" id="success-msg">
+      <div class="success-icon">✅</div>
+      <div class="success-title">We've got everything we need.</div>
+      <div class="success-sub" style="margin-top:8px">I'll start building your system immediately. You'll hear from Harrison Holt within 24 hours with your first update.<br><br><a href="tel:5017728275" style="color:#1c59e9;font-weight:700">(501) 772-8275</a></div>
+    </div>
+  </div>
+</div>
+<script>
+// ✅ PASTE YOUR GHL WEBHOOK URL BELOW
+// Get it from GHL → Automations → Create Workflow → Webhook Trigger → copy the URL
+const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/Frybhc0vA1PWLTHoTIR8/webhook-trigger/32e6c954-914e-458a-bd10-2333c2efbe9d';
+
+let currentSection = 0;
+const totalSections = 6;
+function nextSection(i) {
+  document.getElementById('section-'+i).style.display='none';
+  document.getElementById('section-'+(i+1)).style.display='block';
+  currentSection = i+1;
+  document.getElementById('progress-fill').style.width = Math.round(((i+2)/totalSections)*100)+'%';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function prevSection(i) {
+  document.getElementById('section-'+i).style.display='none';
+  document.getElementById('section-'+(i-1)).style.display='block';
+  currentSection = i-1;
+  document.getElementById('progress-fill').style.width = Math.round((i/totalSections)*100)+'%';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function handleIntakeSubmit(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const data = Object.fromEntries(fd);
+  document.getElementById('intake-form').style.display='none';
+  document.getElementById('success-msg').style.display='block';
+  document.getElementById('progress-fill').style.width='100%';
+  if(WEBHOOK_URL !== 'YOUR_GHL_WEBHOOK_URL') {
+    fetch(WEBHOOK_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)}).catch(()=>{});
+  }
+}
+</script></body></html>

@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Mayor's JukeBox — Sales & Service · Conway, AR</title>
+<link rel="canonical" href="https://501.business/mayorsjukebox">
+<meta name="description" content="Mayor's JukeBox — Conway's jukebox guy. Sales, restoration, service calls & rentals. One tap to call, book, or save the number.">
+<meta property="og:title" content="Mayor's JukeBox — Sales & Service · Conway, AR">
+<meta property="og:description" content="Conway's most trusted jukebox specialist. Sales, restoration & service.">
+<meta property="og:url" content="https://501.business/mayorsjukebox">
+<meta property="og:type" content="business.business">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"Mayor's JukeBox Sales & Service","telephone":"+15015550142","address":{"@type":"PostalAddress","addressLocality":"Conway","addressRegion":"AR","addressCountry":"US"},"areaServed":"Central Arkansas","description":"Jukebox sales, restoration, service and rental in Conway AR","url":"https://501.business/mayorsjukebox"}</script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ── ROOT ── */
+:root{
+  --accent: #F0A500;
+  --accent2: #E8531a;
+  --ag:    #30D158;
+  --ab:    #007AFF;
+  --bg:    #05080e;
+  --g1:    rgba(255,255,255,0.065);
+  --g2:    rgba(255,255,255,0.14);
+  --g3:    rgba(240,165,0,0.12);
+  --t1:    #FFFFFF;
+  --t2:    rgba(255,255,255,0.58);
+  --t3:    rgba(255,255,255,0.30);
+  --r:     20px;
+  --card-border: rgba(240,165,0,0.18);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{background:var(--bg);font-family:'Nunito',-apple-system,sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* ── MESH ORBS ── */
+.mesh{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);animation:drift linear infinite;}
+.o1{width:400px;height:400px;background:radial-gradient(circle,#F0A500 0%,transparent 70%);top:-90px;left:-80px;opacity:.28;animation-duration:26s;}
+.o2{width:320px;height:320px;background:radial-gradient(circle,#E8531a 0%,transparent 70%);top:40%;right:-80px;opacity:.22;animation-duration:32s;animation-delay:-12s;}
+.o3{width:280px;height:280px;background:radial-gradient(circle,#7B2FFF 0%,transparent 70%);bottom:12%;left:8%;opacity:.20;animation-duration:38s;animation-delay:-20s;}
+@keyframes drift{0%{transform:translate(0,0) scale(1);}33%{transform:translate(30px,-24px) scale(1.06);}66%{transform:translate(-16px,38px) scale(.94);}100%{transform:translate(0,0) scale(1);}}
+
+/* ── GLASS ── */
+.glass{
+  background:var(--g1);
+  backdrop-filter:blur(24px) saturate(170%) brightness(1.08);
+  -webkit-backdrop-filter:blur(24px) saturate(170%) brightness(1.08);
+  border:1px solid var(--card-border);
+  position:relative;overflow:hidden;
+}
+.glass::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(155deg,rgba(255,255,255,.10) 0%,transparent 55%);box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 10px 32px rgba(0,0,0,.50);}
+.glass::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(240,165,0,.55) 50%,transparent);}
+
+/* ── LAYOUT ── */
+.page{max-width:430px;margin:0 auto;padding:0 0 80px;position:relative;z-index:1;}
+@keyframes up{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── HEADER ── */
+.hd{display:flex;flex-direction:column;align-items:center;padding:52px 24px 24px;text-align:center;animation:up .5s ease both;}
+.avatar-ring{
+  width:100px;height:100px;border-radius:50%;padding:3px;
+  background:linear-gradient(135deg,rgba(240,165,0,.55) 0%,rgba(255,255,255,.08) 50%,rgba(232,83,26,.35) 100%);
+  box-shadow:0 0 0 1px rgba(240,165,0,.18),0 12px 40px rgba(0,0,0,.55),0 0 60px rgba(240,165,0,.22);
+  margin-bottom:14px;position:relative;
+}
+.avatar-inner{width:94px;height:94px;border-radius:50%;background:rgba(28,24,16,.95);display:flex;align-items:center;justify-content:center;font-size:40px;}
+.badge-live{position:absolute;bottom:5px;right:5px;width:20px;height:20px;background:var(--ag);border-radius:50%;border:2.5px solid var(--bg);box-shadow:0 0 12px rgba(48,209,88,.7);}
+.badge-live::after{content:'';position:absolute;inset:-5px;border-radius:50%;background:rgba(48,209,88,.25);animation:pulse 2s ease-out infinite;}
+@keyframes pulse{0%{transform:scale(.8);opacity:.8;}100%{transform:scale(2.0);opacity:0;}}
+
+.biz-name{font-size:26px;font-weight:900;color:var(--t1);letter-spacing:-.5px;margin-bottom:2px;}
+.biz-cat{font-size:11px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:6px;}
+.biz-value{font-size:13px;color:var(--t2);line-height:1.5;max-width:240px;margin-bottom:12px;}
+.stars-row{display:inline-flex;align-items:center;gap:6px;background:rgba(240,165,0,.10);border:1px solid rgba(240,165,0,.22);border-radius:50px;padding:5px 14px;}
+.stars-em{font-size:13px;color:var(--accent);}
+.stars-num{font-size:13px;font-weight:800;color:var(--t1);}
+.stars-count{font-size:11px;color:var(--t3);font-weight:600;}
+
+/* ── QUICK STRIP ── */
+.strip{display:flex;justify-content:center;gap:16px;padding:18px 24px 26px;animation:up .5s .08s ease both;}
+.qbtn{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;text-decoration:none;background:none;border:none;font-family:inherit;}
+.qicon{
+  width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.26),0 6px 22px rgba(0,0,0,.44);
+  transition:transform .15s;
+}
+.qbtn:active .qicon{transform:scale(.86);}
+.qi-call{background:rgba(48,209,88,.18);}
+.qi-sms{background:rgba(0,122,255,.18);}
+.qi-book{background:rgba(240,165,0,.16);}
+.qi-web{background:rgba(232,83,26,.16);}
+.qlabel{font-size:11px;font-weight:700;color:var(--t3);}
+
+/* ── SECTIONS ── */
+.sections{padding:0 14px;display:flex;flex-direction:column;gap:8px;}
+.sections>*{animation:up .5s ease both;}
+.sections>*:nth-child(1){animation-delay:.12s;}
+.sections>*:nth-child(2){animation-delay:.18s;}
+.sections>*:nth-child(3){animation-delay:.24s;}
+.sections>*:nth-child(4){animation-delay:.30s;}
+.sections>*:nth-child(5){animation-delay:.36s;}
+.sections>*:nth-child(6){animation-delay:.42s;}
+.section-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--t3);padding:4px 6px;margin-top:8px;}
+
+/* ── ABOUT BLOCK ── */
+.about-block{padding:16px 18px 18px;position:relative;z-index:2;}
+.about-eyebrow{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:rgba(240,165,0,.5);margin-bottom:8px;}
+.about-copy{font-size:14px;font-weight:600;color:var(--t2);line-height:1.75;margin-bottom:14px;}
+.about-cta1{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:13px 16px;border-radius:50px;
+  background:rgba(240,165,0,.14);border:1.5px solid rgba(240,165,0,.30);
+  font-size:14px;font-weight:800;color:var(--t1);
+  text-decoration:none;cursor:pointer;width:100%;font-family:inherit;
+  margin-bottom:8px;transition:background .15s;
+}
+.about-cta1:active{background:rgba(240,165,0,.22);}
+.about-cta2{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 16px;border-radius:50px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);
+  font-size:13px;font-weight:700;color:var(--t3);
+  text-decoration:none;cursor:pointer;width:100%;font-family:inherit;
+  transition:background .15s;
+}
+.about-cta2:active{background:rgba(255,255,255,.08);}
+
+/* ── TAP ROW ── */
+.tap-row{display:flex;align-items:center;gap:14px;padding:14px 16px;cursor:pointer;text-decoration:none;background:none;border:none;width:100%;font-family:inherit;text-align:left;transition:background .15s;position:relative;z-index:2;}
+.tap-row:active{background:rgba(255,255,255,.055);}
+.tap-row+.tap-row::before{content:'';position:absolute;top:0;left:54px;right:0;height:.5px;background:rgba(255,255,255,.07);}
+.row-icon{
+  width:40px;height:40px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.11);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16);
+}
+.ri-green{background:rgba(48,209,88,.18);}
+.ri-blue{background:rgba(0,122,255,.20);}
+.ri-gold{background:rgba(240,165,0,.18);}
+.ri-purple{background:rgba(191,90,242,.18);}
+.ri-orange{background:rgba(232,83,26,.20);}
+.ri-teal{background:rgba(90,200,250,.18);}
+.ri-red{background:rgba(255,59,48,.18);}
+.ri-fb{background:rgba(24,119,242,.20);}
+.row-text{flex:1;min-width:0;}
+.row-title{font-size:15px;font-weight:700;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.row-sub{font-size:12px;color:var(--t2);margin-top:2px;line-height:1.4;}
+.row-arrow{font-size:15px;color:var(--t3);flex-shrink:0;}
+
+/* ── SHARE INTRO ── */
+.share-intro{padding:14px 16px 6px;position:relative;z-index:2;}
+.share-intro-title{font-size:15px;font-weight:800;color:var(--t1);margin-bottom:3px;}
+.share-intro-sub{font-size:12px;color:var(--t2);line-height:1.5;}
+
+/* ── DEMO BADGE (tells prospects this is interactive) ── */
+.demo-badge{
+  display:flex;align-items:center;gap:8px;justify-content:center;
+  margin:0 14px 8px;padding:9px 16px;
+  background:rgba(240,165,0,.08);
+  border:1px solid rgba(240,165,0,.22);
+  border-radius:50px;
+  font-size:11px;font-weight:800;color:rgba(240,165,0,.85);
+  letter-spacing:.5px;text-transform:uppercase;
+  animation:up .5s ease both;
+}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(16px);
+  background:rgba(20,24,36,.96);border:1px solid var(--card-border);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-radius:18px;padding:14px 20px;
+  min-width:280px;max-width:340px;
+  box-shadow:0 8px 32px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.12);
+  z-index:900;
+  opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast-icon{font-size:22px;margin-bottom:5px;display:block;}
+.toast-title{font-size:14px;font-weight:800;color:var(--t1);margin-bottom:3px;}
+.toast-body{font-size:12px;color:var(--t2);line-height:1.55;}
+
+/* ── CALL SHEET ── */
+.sheet-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);z-index:500;align-items:flex-end;justify-content:center;}
+.sheet-wrap.open{display:flex;}
+.sheet{
+  background:rgba(14,18,28,.97);
+  border:1px solid var(--card-border);
+  border-radius:28px 28px 0 0;
+  padding:20px 20px 44px;
+  width:100%;max-width:430px;
+}
+.sheet-handle{width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.18);margin:0 auto 20px;}
+.sheet-title{font-size:16px;font-weight:900;color:var(--t1);margin-bottom:4px;text-align:center;}
+.sheet-sub{font-size:12px;color:var(--t3);text-align:center;margin-bottom:18px;}
+.call-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);border-radius:16px;margin-bottom:9px;cursor:pointer;text-decoration:none;color:var(--t1);transition:background .15s;}
+.call-opt:active{background:rgba(255,255,255,.10);}
+.call-opt:last-of-type{margin-bottom:0;}
+.call-icon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.ci-green{background:rgba(48,209,88,.18);border:1px solid rgba(48,209,88,.22);}
+.ci-blue{background:rgba(0,122,255,.18);border:1px solid rgba(0,122,255,.22);}
+.ci-purple{background:rgba(191,90,242,.18);border:1px solid rgba(191,90,242,.22);}
+.call-info{flex:1;}
+.call-label{font-size:15px;font-weight:700;}
+.call-num{font-size:12px;color:var(--t3);margin-top:2px;}
+.sheet-close{width:100%;margin-top:14px;padding:13px;border-radius:50px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:var(--t3);font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;}
+
+/* ── SCHEDULE OVERLAY ── */
+.sched-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.80);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:500;align-items:flex-end;justify-content:center;}
+.sched-wrap.open{display:flex;}
+.sched-sheet{background:rgba(12,16,26,.98);border:1px solid var(--card-border);border-radius:28px 28px 0 0;padding:20px 0 0;width:100%;max-width:430px;height:88vh;display:flex;flex-direction:column;}
+.sched-head{display:flex;align-items:center;justify-content:space-between;padding:0 20px 16px;}
+.sched-title{font-size:16px;font-weight:900;color:var(--t1);}
+.sched-close-btn{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.10);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--t3);cursor:pointer;}
+.sched-iframe{flex:1;border:none;width:100%;}
+
+/* ── QR OVERLAY ── */
+.qr-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:500;align-items:flex-end;justify-content:center;}
+.qr-wrap.open{display:flex;}
+.qr-sheet{background:rgba(12,16,26,.98);border:1px solid var(--card-border);border-radius:28px 28px 0 0;padding:24px 24px 44px;width:100%;max-width:430px;text-align:center;}
+.qr-handle{width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.18);margin:0 auto 20px;}
+.qr-logo{font-size:48px;margin-bottom:8px;}
+.qr-biz{font-size:18px;font-weight:900;color:var(--t1);margin-bottom:4px;}
+.qr-hint{font-size:12px;color:var(--t3);margin-bottom:20px;}
+.qr-box{background:#fff;border-radius:18px;padding:16px;display:inline-block;margin-bottom:18px;box-shadow:0 0 40px rgba(240,165,0,.2);}
+.qr-share-btn{width:100%;padding:15px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--accent),#E8531a);color:#fff;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;margin-bottom:10px;letter-spacing:.3px;}
+.qr-close-btn{width:100%;padding:13px;border-radius:50px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:var(--t3);font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;}
+
+/* ── FOOTER ── */
+.footer{text-align:center;padding:32px 20px 16px;}
+.foot-link{display:inline-flex;align-items:center;gap:7px;text-decoration:none;opacity:.30;transition:opacity .2s;}
+.foot-link:hover{opacity:.55;}
+.foot-badge{width:22px;height:22px;background:#e8531a;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:7.5px;font-weight:900;color:#fff;box-shadow:0 2px 8px rgba(232,83,26,.4);}
+.foot-text{font-size:11px;font-weight:600;color:var(--t3);}
+</style>
+</head>
+<body>
+
+<!-- MESH -->
+<div class="mesh">
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="hd">
+    <div class="avatar-ring" style="position:relative;">
+      <div class="avatar-inner">🎵</div>
+      <div class="badge-live"></div>
+    </div>
+    <div class="biz-name">Mayor's JukeBox</div>
+    <div class="biz-cat">Sales · Service · Repair · Rental</div>
+    <div class="biz-value">Conway's jukebox guy — classics to modern, one call does it all.</div>
+    <div class="stars-row">
+      <span class="stars-em">★★★★★</span>
+      <span class="stars-num">4.9</span>
+      <span class="stars-count">· 63 reviews · Conway, AR</span>
+    </div>
+  </div>
+
+  <!-- QUICK STRIP -->
+  <div class="strip">
+    <button class="qbtn" onclick="openCallSheet()">
+      <div class="qicon qi-call">📞</div>
+      <span class="qlabel">Call</span>
+    </button>
+    <a href="sms:5015550142&body=Hey%20Mayor%20%E2%80%94%20saw%20your%20page%20and%20wanted%20to%20reach%20out!" class="qbtn" onclick="toast('💬','Opens your texts','Sends a pre-written message straight to your business number. Customer never has to type a thing.')">
+      <div class="qicon qi-sms">💬</div>
+      <span class="qlabel">Text</span>
+    </a>
+    <button class="qbtn" onclick="openSched()">
+      <div class="qicon qi-book">📅</div>
+      <span class="qlabel">Book</span>
+    </button>
+    <a href="https://501.business/mayorsjukebox" target="_blank" class="qbtn" onclick="toast('🌐','Opens your full website','Links directly to your website or any URL you choose — great for portfolios, menus, or galleries.')">
+      <div class="qicon qi-web">🌐</div>
+      <span class="qlabel">Site</span>
+    </a>
+  </div>
+
+  <!-- DEMO BADGE -->
+  <div class="demo-badge">
+    👆 Tap anything — it all works
+  </div>
+
+  <div class="sections">
+
+    <!-- ── ABOUT ── -->
+    <div class="section-label">About</div>
+    <div class="card glass" style="border-radius:20px;">
+      <div class="about-block">
+        <div class="about-eyebrow">About Mayor's JukeBox</div>
+        <div class="about-copy">Finding someone who actually knows jukeboxes in Central Arkansas is harder than it sounds. Mayor's been selling, fixing, and restoring them in Conway for over 15 years — everything from classic Wurlitzer to modern TouchTunes. If it plays music, Mayor keeps it playing.</div>
+        <button class="about-cta1" onclick="openSched()">
+          <span>Book a Service Call →</span><span style="opacity:.5">›</span>
+        </button>
+        <button class="about-cta2" onclick="saveContact()">
+          <span>Save Mayor's Number →</span><span style="opacity:.35">›</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── CONNECT ── -->
+    <div class="section-label">Connect</div>
+    <div class="card glass" style="border-radius:20px;">
+      <button class="tap-row" onclick="openCallSheet()">
+        <div class="row-icon ri-green">📞</div>
+        <div class="row-text">
+          <div class="row-title">Call Mayor</div>
+          <div class="row-sub">(501) 555-0142 · Business line</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </button>
+      <a href="sms:5015550142&body=Hey%20Mayor%20%E2%80%94%20reaching%20out%20from%20your%20page!" class="tap-row" onclick="toast('💬','Pre-filled text message','Your customer taps once — their texts app opens with a message already written. No typing, no friction, no lost leads.')">
+        <div class="row-icon ri-blue">💬</div>
+        <div class="row-text">
+          <div class="row-title">Text or iMessage</div>
+          <div class="row-sub">(501) 555-0142 · Pre-filled message</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </a>
+      <button class="tap-row" onclick="saveContact()">
+        <div class="row-icon ri-purple">👤</div>
+        <div class="row-text">
+          <div class="row-title">Save to My Phone</div>
+          <div class="row-sub">Adds number, email + website to contacts</div>
+        </div>
+        <div class="row-arrow">↓</div>
+      </button>
+      <a href="https://facebook.com" target="_blank" class="tap-row" onclick="toast('📘','Facebook page link','Direct link to your Facebook business page. One tap from your BluePage to your reviews, posts, and photos.')">
+        <div class="row-icon ri-fb" style="background:rgba(24,119,242,.20);border:1px solid rgba(24,119,242,.18);">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047v-2.66c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971h-1.513c-1.491 0-1.956.931-1.956 1.886v2.264h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-title">Facebook Page</div>
+          <div class="row-sub">Mayor's JukeBox Sales & Service</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </a>
+    </div>
+
+    <!-- ── SHARE ── -->
+    <div class="section-label">Share</div>
+    <div class="card glass" style="border-radius:20px;">
+      <div class="share-intro">
+        <div class="share-intro-title">Know someone with a jukebox?</div>
+        <div class="share-intro-sub">Send them this page — one tap, pre-written and ready to go.</div>
+      </div>
+      <button class="tap-row" onclick="shareShort()">
+        <div class="row-icon ri-blue">💬</div>
+        <div class="row-text">
+          <div class="row-title">Text a Friend</div>
+          <div class="row-sub">Short · Personal · Pre-filled</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </button>
+      <button class="tap-row" onclick="shareFacebook()">
+        <div class="row-icon ri-fb" style="background:rgba(24,119,242,.20);border:1px solid rgba(24,119,242,.18);">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047v-2.66c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971h-1.513c-1.491 0-1.956.931-1.956 1.886v2.264h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+        </div>
+        <div class="row-text">
+          <div class="row-title">Share on Facebook</div>
+          <div class="row-sub">Longer · For a post or message</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </button>
+      <button class="tap-row" onclick="showQR()">
+        <div class="row-icon ri-teal">⬛</div>
+        <div class="row-text">
+          <div class="row-title">Show QR Code</div>
+          <div class="row-sub">Scan to share · Works on any phone</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </button>
+    </div>
+
+    <!-- ── REVIEWS ── -->
+    <div class="section-label">Reviews</div>
+    <div class="card glass" style="border-radius:20px;">
+      <a href="https://g.page/r/demo-review-link" target="_blank" class="tap-row" onclick="toast('⭐','Google Review tap','One tap sends your customer straight to your Google review page. Most clients see a 2–3x jump in review count within the first month.')">
+        <div class="row-icon ri-gold">⭐</div>
+        <div class="row-text">
+          <div class="row-title">Leave a Google Review</div>
+          <div class="row-sub">Takes 30 seconds · Means everything</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </a>
+      <button class="tap-row" onclick="toast('📋','Private feedback form','Happy customers go to Google. Unhappy ones go here first — catches bad reviews before they go public and routes them to you directly instead.')">
+        <div class="row-icon ri-orange">📋</div>
+        <div class="row-text">
+          <div class="row-title">Rate Your Experience</div>
+          <div class="row-sub">Private feedback · Goes directly to Mayor</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </button>
+    </div>
+
+    <!-- ── ORACLE ── -->
+    <div class="section-label">Oracle AI · After Hours</div>
+    <div class="card glass" style="border-radius:20px;">
+      <button class="tap-row" onclick="toast('🤖','Oracle AI phone agent','When Mayor can\'t answer, Oracle does. It captures the caller\'s name, number, and reason for calling — then books them into the calendar automatically. No missed jobs.')">
+        <div class="row-icon ri-purple">🤖</div>
+        <div class="row-text">
+          <div class="row-title">Oracle Answers 24/7</div>
+          <div class="row-sub">AI agent · Captures leads after hours</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </button>
+      <button class="tap-row" onclick="toast('📊','Monthly lead report','Every month you get a summary: how many calls came in, how many Oracle captured, how many booked. You see exactly what your BluePage is worth.')">
+        <div class="row-icon ri-teal">📊</div>
+        <div class="row-text">
+          <div class="row-title">Monthly Lead Report</div>
+          <div class="row-sub">Calls · Bookings · Reviews — tracked</div>
+        </div>
+        <div class="row-arrow">›</div>
+      </button>
+    </div>
+
+  </div><!-- /sections -->
+
+  <div class="footer">
+    <a href="https://www.501.marketing" target="_blank" class="foot-link">
+      <div class="foot-badge">501</div>
+      <span class="foot-text">Built by 501 Digital Marketing · Conway, AR</span>
+    </a>
+  </div>
+
+</div><!-- /page -->
+
+<!-- CALL SHEET -->
+<div class="sheet-wrap" id="call-sheet" onclick="closeSheet('call-sheet')">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">How would you like to reach Mayor?</div>
+    <div class="sheet-sub">All lines go to the same great service</div>
+    <a href="tel:5015550142" class="call-opt">
+      <div class="call-icon ci-green">🏢</div>
+      <div class="call-info">
+        <div class="call-label">Business Line</div>
+        <div class="call-num">(501) 555-0142 · Main shop number</div>
+      </div>
+    </a>
+    <a href="tel:5015550143" class="call-opt">
+      <div class="call-icon ci-blue">📱</div>
+      <div class="call-info">
+        <div class="call-label">Mayor's Cell</div>
+        <div class="call-num">(501) 555-0143 · Direct line</div>
+      </div>
+    </a>
+    <a href="tel:5015054995" class="call-opt" onclick="toast('🤖','Oracle AI Agent','This is the 24/7 AI line. Oracle answers, captures your info, and books you in — even at midnight. No call goes unanswered.')">
+      <div class="call-icon ci-purple">🤖</div>
+      <div class="call-info">
+        <div class="call-label">Oracle — AI Line · 24/7</div>
+        <div class="call-num">(501) 505-4995 · Always answers</div>
+      </div>
+    </a>
+    <button class="sheet-close" onclick="closeSheet('call-sheet')">Close</button>
+  </div>
+</div>
+
+<!-- SCHEDULE OVERLAY -->
+<div class="sched-wrap" id="sched-sheet" onclick="closeSheet('sched-sheet')">
+  <div class="sched-sheet" onclick="event.stopPropagation()">
+    <div class="sched-head">
+      <div class="sheet-handle" style="margin:0;"></div>
+      <div class="sched-title">Book a Service Call</div>
+      <button class="sched-close-btn" onclick="closeSheet('sched-sheet')">✕</button>
+    </div>
+    <iframe
+      class="sched-iframe"
+      src="https://app.501.digital/widget/booking/pZXeYAha7IQzjulVwqhA"
+      title="Book Mayor's JukeBox"
+      loading="lazy"
+    ></iframe>
+  </div>
+</div>
+
+<!-- QR OVERLAY -->
+<div class="qr-wrap" id="qr-sheet" onclick="closeSheet('qr-sheet')">
+  <div class="qr-sheet" onclick="event.stopPropagation()">
+    <div class="qr-handle"></div>
+    <div class="qr-logo">🎵</div>
+    <div class="qr-biz">Mayor's JukeBox</div>
+    <div class="qr-hint">Scan to visit · or tap to share below</div>
+    <div class="qr-box"><div id="qr-target"></div></div>
+    <button class="qr-share-btn" onclick="shareShort()">Send to a Friend</button>
+    <button class="qr-close-btn" onclick="closeSheet('qr-sheet')">Close</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toast-icon"></span>
+  <div class="toast-title" id="toast-title"></div>
+  <div class="toast-body" id="toast-body"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" crossorigin="anonymous"></script>
+<script>
+// ── Business data (maps from intake form) ───────────────────────────────────
+const B = {
+  name:    "Mayor's JukeBox Sales & Service",
+  slug:    "mayorsjukebox",
+  url:     "https://501.business/mayorsjukebox",
+  phone:   "5015550142",
+  cell:    "5015550143",
+  email:   "mayor@mayorsjukebox.com",
+  short:   "Hey — found this guy Mayor in Conway who sells, fixes, and restores jukeboxes. If you know anyone who needs one serviced or wants to buy one, here's his page: https://501.business/mayorsjukebox or call/text (501) 555-0142",
+  medium:  "If you've got a jukebox that needs work — or you've been thinking about getting one — there's a guy in Conway named Mayor who's been doing this for 15 years. Sales, restoration, service calls, rentals. He's got a BluePage where you can call, text, book, or save his number in one tap: https://501.business/mayorsjukebox"
+};
+
+// ── Toast system ─────────────────────────────────────────────────────────────
+let toastTimer;
+function toast(icon, title, body) {
+  const el = document.getElementById('toast');
+  document.getElementById('toast-icon').textContent = icon;
+  document.getElementById('toast-title').textContent = title;
+  document.getElementById('toast-body').textContent = body;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 4200);
+}
+
+// ── Sheet controls ────────────────────────────────────────────────────────────
+function openCallSheet() {
+  document.getElementById('call-sheet').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  toast('📞', 'Multi-option call menu', 'Your customers choose Business Line, your cell, or Oracle AI. You control which options show per client.');
+}
+function openSched() {
+  document.getElementById('sched-sheet').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  toast('📅', 'Full-screen booking overlay', 'GHL calendar slides up over the page. Customer picks a time, books, and you get notified. No app needed on their end.');
+}
+function closeSheet(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── QR code ──────────────────────────────────────────────────────────────────
+let qrBuilt = false;
+function showQR() {
+  document.getElementById('qr-sheet').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (!qrBuilt && typeof QRCode !== 'undefined') {
+    new QRCode(document.getElementById('qr-target'), {
+      text: B.url, width: 180, height: 180,
+      colorDark: '#000', colorLight: '#fff'
+    });
+    qrBuilt = true;
+  }
+  toast('⬛', 'Live QR code', 'Generated client-side — no server needed. Put it on a truck wrap, business card, or sticker. Anyone scans it, they\'re on the page.');
+}
+
+// ── Share ─────────────────────────────────────────────────────────────────────
+async function shareShort() {
+  if (navigator.share) {
+    try { await navigator.share({ title: B.name, text: B.short, url: B.url }); return; } catch(e) {}
+  }
+  try { await navigator.clipboard.writeText(B.short + '\n' + B.url); toast('✅', 'Link copied!', 'Paste it into a text message. Your customer now has Mayor\'s full page.'); }
+  catch(e) { toast('📋', 'Share', B.short); }
+}
+async function shareFacebook() {
+  if (navigator.share) {
+    try { await navigator.share({ title: B.name, text: B.medium, url: B.url }); return; } catch(e) {}
+  }
+  window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(B.url), '_blank');
+  toast('📘', 'Facebook share', 'Opens the native Facebook share dialog with the page URL pre-loaded. Works on mobile and desktop.');
+}
+
+// ── Save Contact ──────────────────────────────────────────────────────────────
+function saveContact() {
+  const v = [
+    'BEGIN:VCARD','VERSION:3.0',
+    'FN:Mayor Johnson',
+    'ORG:Mayor\'s JukeBox Sales & Service',
+    'TITLE:Jukebox Sales & Service',
+    'TEL;TYPE=CELL,pref:+1' + B.cell,
+    'TEL;TYPE=WORK:+1' + B.phone,
+    'EMAIL:' + B.email,
+    'URL:' + B.url,
+    'ADR;TYPE=WORK:;;Conway;AR;;US',
+    'NOTE:Jukebox sales, restoration & service — Central Arkansas',
+    'END:VCARD'
+  ].join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([v], { type: 'text/vcard' }));
+  a.download = 'mayors-jukebox-contact.vcf';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('👤', 'Contact saved to phone', 'Downloads a .vcf file — one tap adds Mayor\'s name, number, email, and website directly into their phone contacts. Works on iPhone and Android.');
+}
+
+// ── Gyroscope parallax ────────────────────────────────────────────────────────
+window.addEventListener('deviceorientation', e => {
+  const x = (e.gamma || 0) / 28, y = (e.beta || 0) / 28;
+  document.querySelectorAll('.orb').forEach((o, i) => {
+    const d = (i + 1) * 9;
+    o.style.transform = `translate(${x * d}px, ${y * d}px)`;
+  });
+});
+</script>
+</body>
+</html>
