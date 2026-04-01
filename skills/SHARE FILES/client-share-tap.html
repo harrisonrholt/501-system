@@ -1,0 +1,175 @@
+<!-- =====================================================
+     501 CLIENT BLUEPAGE — SHARE TAP COMPONENT
+     Place this as the FIRST CARD inside .sections,
+     right after the quick action strip.
+
+     One tap opens phone's native share sheet.
+     Short pre-filled text for SMS/iMessage.
+     Medium pre-filled text for Facebook.
+     Niche auto-matched from {{BIZ_CATEGORY}}.
+
+     VARIABLES TO SWAP:
+     {{BIZ_CATEGORY}}   e.g. "Plumbing · Conway, AR"
+     {{BIZ_NAME}}       e.g. "Mike's Plumbing"
+     {{BIZ_SLUG}}       e.g. "mikes-plumbing"
+     ===================================================== -->
+
+<div class="section-label">Share</div>
+
+<div class="card glass" style="border-radius:20px;">
+
+  <div style="padding:14px 16px 4px;position:relative;z-index:2;">
+    <div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:3px;">
+      Know someone who needs this?
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,.48);line-height:1.5;">
+      One tap sends their info to a friend.
+    </div>
+  </div>
+
+  <!-- Single tap — native share sheet handles platform choice -->
+  <button onclick="shareClient()" class="tap-row">
+    <div class="row-icon ri-blue">📤</div>
+    <div class="row-text">
+      <div class="row-title">Send to a Friend</div>
+      <div class="row-sub" id="share-sub">Text, iMessage, Facebook &amp; more</div>
+    </div>
+    <div class="row-arrow">›</div>
+  </button>
+
+</div>
+
+<script>
+/* ── CLIENT SHARE CONFIG ── */
+const SHARE_CFG = {
+  bizName:  '{{BIZ_NAME}}',
+  category: '{{BIZ_CATEGORY}}',
+  url:      'https://501.business/{{BIZ_SLUG}}'
+};
+
+/* ── NICHE MAP ──
+   Keys are lowercase substrings to match against category.
+   Each entry: [keywords[], shortText, mediumText]
+   shortText  → used for SMS / iMessage (under 160 chars ideal)
+   mediumText → used for Facebook (2-3 sentences)
+── */
+const NICHE_MAP = [
+  [
+    ['plumb'],
+    'Hey — if you need a plumber, this is who I use. Local, reliable, easy to book and pay online.',
+    'Found a solid plumber in Central Arkansas worth saving. Shows up on time, quotes upfront, and you can book and pay from your phone. Saved their info — you should too.'
+  ],
+  [
+    ['hvac','heat','cool','air condition'],
+    'Hey — if you need AC or heating work, this is who I call. Local and easy to deal with.',
+    'Found a good HVAC company in Central Arkansas worth knowing about. Shows up, does the job right, and you can book and pay online. Keeping their number.'
+  ],
+  [
+    ['roof'],
+    'Hey — need roofing work? This is who I trust around here. Easy to book online.',
+    'Found a roofing company in Central Arkansas that actually delivers. Shows up when they say, does clean work, easy to pay online. Worth saving their info.'
+  ],
+  [
+    ['electric'],
+    'Hey — need an electrician? This is who I use locally. Solid and easy to get ahold of.',
+    'Good electrician in Central Arkansas — hard to find, but worth it when you do. Books online, shows up, gets it done right. Passing this along.'
+  ],
+  [
+    ['landscap','lawn','mow','yard'],
+    'Hey — if you need lawn or landscape work, this is who I use. Local and reliable.',
+    'Found a landscaping company around here worth knowing. Consistent, local, and easy to book and pay from your phone. Saving this one.'
+  ],
+  [
+    ['paint'],
+    'Hey — need painting done? This is who I\'d call. Local, clean work, easy to book.',
+    'Found a good painting company in Central Arkansas. Fair price, clean job, easy to communicate with. Worth passing along.'
+  ],
+  [
+    ['clean'],
+    'Hey — if you need a cleaning service, this is who I use. Reliable and easy to book.',
+    'Found a cleaning service around here worth knowing about. Consistent, professional, easy to schedule online. Saving their info.'
+  ],
+  [
+    ['pest','extermina'],
+    'Hey — if you need pest control, this is who I call. Local and actually works.',
+    'Found a pest control company in Central Arkansas that gets the job done. Local, affordable, easy to book online. Passing this along.'
+  ],
+  [
+    ['concrete','demo','haul','excavat','contrac','remodel','handyman'],
+    'Hey — need contractor work done? This is who I trust locally. Easy to book and pay.',
+    'Found a good contractor in Central Arkansas worth saving. Shows up, does it right, and you can handle everything from your phone. Keeping their number.'
+  ],
+  [
+    ['restaurant','food','cafe','bar','grill','diner'],
+    'Hey — if you haven\'t been here yet, you should. Good local spot.',
+    'Found a solid local spot in Central Arkansas worth checking out. Good food, good people. Passing this along.'
+  ],
+  [
+    ['salon','barber','hair','nail','spa','beauty'],
+    'Hey — found my new go-to spot around here. Worth checking out.',
+    'Found a great local salon in Central Arkansas. Consistent, easy to book, does good work. Saving this one.'
+  ],
+  [
+    ['auto','car','mechanic','tire','oil','body'],
+    'Hey — need a mechanic? This is who I trust locally. Actually honest.',
+    'Finally found a mechanic in Central Arkansas I actually trust. Fair, local, easy to get ahold of. Passing this along.'
+  ],
+  [
+    ['dental','dentist'],
+    'Hey — if you need a dentist, this is who I go to. Actually good.',
+    'Found a dentist in Central Arkansas worth recommending. Easy to book, professional, doesn\'t push unnecessary stuff. Keeping their info.'
+  ],
+  [
+    ['gym','fitness','train','crossfit'],
+    'Hey — been going here a while. Good place if you\'re looking.',
+    'Found a good gym in Central Arkansas worth checking out. Solid facility, good people, easy to sign up. Passing this along.'
+  ],
+];
+
+/* Fallback if no niche matches */
+const FALLBACK = [
+  'Hey — thought of you when I found this. Local business worth knowing about.',
+  'Found a good local business in Central Arkansas worth passing along. Easy to contact, book, and pay online. Saving their info — you should too.'
+];
+
+function getNicheText() {
+  const cat = SHARE_CFG.category.toLowerCase();
+  for (const [keys, short, medium] of NICHE_MAP) {
+    if (keys.some(k => cat.includes(k))) return { short, medium };
+  }
+  return { short: FALLBACK[0], medium: FALLBACK[1] };
+}
+
+/* ── SHARE FUNCTION ──
+   Web Share API passes both text + url.
+   On mobile: phone picks best channel.
+   On desktop: copies full message to clipboard.
+── */
+async function shareClient() {
+  const { short, medium } = getNicheText();
+  const url  = SHARE_CFG.url;
+
+  /* Use short text as primary — clean for texts.
+     Medium is embedded as the og:description so
+     Facebook's share dialog pulls it automatically
+     when the URL is pasted/shared there. */
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: SHARE_CFG.bizName,
+        text:  short,
+        url:   url
+      });
+    } catch(e) { /* user cancelled — do nothing */ }
+  } else {
+    /* Desktop fallback — copy full message */
+    const full = short + '\n' + url;
+    try {
+      await navigator.clipboard.writeText(full);
+      alert('Copied! Paste it anywhere to share.');
+    } catch(e) {
+      alert(full);
+    }
+  }
+}
+</script>

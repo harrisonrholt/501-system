@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>How Did We Do? — {{BIZ_NAME}}</title>
+<link rel="canonical" href="https://501.business/{{SLUG}}-review">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* =====================================================
+   501 REVIEW TAP PAGE v2
+   Replace ALL {{CAPS_VARS}} before deploying.
+   See VARIABLE REFERENCE at bottom of file.
+   ===================================================== */
+:root {
+  --accent:   {{BRAND_COLOR}};  /* client brand hex e.g. #007AFF */
+  --ag:  #30D158;
+  --ag2: rgba(48,209,88,0.18);
+  --ab:  rgba(0,122,255,0.18);
+  --bg:  #050810;
+  --g1:  rgba(255,255,255,0.08);
+  --g2:  rgba(255,255,255,0.14);
+  --t1:  #FFFFFF;
+  --t2:  rgba(255,255,255,0.58);
+  --t3:  rgba(255,255,255,0.28);
+  --r:   20px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{background:var(--bg);font-family:'Nunito',-apple-system,sans-serif;min-height:100vh;overflow-x:hidden;}
+
+/* mesh */
+.mesh{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);animation:drift linear infinite;}
+.o1{width:360px;height:360px;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);top:-70px;left:-50px;opacity:.45;animation-duration:26s;}
+.o2{width:300px;height:300px;background:radial-gradient(circle,#6e2fff 0%,transparent 70%);top:42%;right:-60px;opacity:.30;animation-duration:32s;animation-delay:-11s;}
+.o3{width:250px;height:250px;background:radial-gradient(circle,#00c2e0 0%,transparent 70%);bottom:12%;left:12%;opacity:.28;animation-duration:38s;animation-delay:-18s;}
+@keyframes drift{0%{transform:translate(0,0) scale(1);}33%{transform:translate(35px,-28px) scale(1.07);}66%{transform:translate(-22px,42px) scale(.93);}100%{transform:translate(0,0) scale(1);}}
+
+/* glass */
+.glass{background:var(--g1);backdrop-filter:blur(20px) saturate(160%) brightness(1.06);-webkit-backdrop-filter:blur(20px) saturate(160%) brightness(1.06);border:1px solid var(--g2);position:relative;overflow:hidden;}
+.glass::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(155deg,rgba(255,255,255,0.11) 0%,transparent 55%);box-shadow:inset 0 1px 0 rgba(255,255,255,0.26),0 10px 32px rgba(0,0,0,.44);}
+.glass::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(255,255,255,.72) 50%,transparent);}
+
+/* layout */
+.page{max-width:430px;margin:0 auto;padding:0 0 64px;position:relative;z-index:1;}
+.screen{display:none;flex-direction:column;align-items:center;}
+.screen.on{display:flex;animation:up .38s ease both;}
+@keyframes up{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+/* header */
+.hd{display:flex;flex-direction:column;align-items:center;padding:52px 22px 24px;text-align:center;}
+.avatar-ring{width:90px;height:90px;border-radius:50%;padding:3px;background:linear-gradient(135deg,rgba(255,255,255,.36) 0%,rgba(255,255,255,.08) 50%,rgba(255,255,255,.22) 100%);box-shadow:0 0 0 1px rgba(255,255,255,.10),0 12px 38px rgba(0,0,0,.52),0 0 50px rgba(0,100,255,.12);margin-bottom:15px;}
+.avatar-inner{width:84px;height:84px;border-radius:50%;background:rgba(28,32,52,.92);display:flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden;object-fit:cover;}
+.biz-name{font-size:21px;font-weight:900;color:var(--t1);letter-spacing:-.4px;margin-bottom:3px;}
+.biz-cat{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:2px;}
+
+/* question */
+.q{padding:0 20px 20px;width:100%;text-align:center;}
+.q-title{font-size:23px;font-weight:900;color:var(--t1);line-height:1.2;margin-bottom:6px;}
+.q-sub{font-size:13px;color:var(--t2);line-height:1.55;}
+
+/* ── STAR RATING ── */
+.stars-wrap{display:flex;justify-content:center;gap:10px;padding:0 20px 6px;width:100%;}
+.star-btn{
+  width:58px;height:58px;border-radius:50%;border:none;cursor:pointer;font-family:inherit;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);
+  transition:transform .15s,background .15s,box-shadow .15s;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.star-btn:active{transform:scale(.88);}
+.star-btn:hover{background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.22);}
+/* highlight on hover cascade */
+.star-btn .star-icon{font-size:22px;line-height:1;transition:filter .12s;}
+.star-btn .star-num{font-size:9px;font-weight:800;color:var(--t3);}
+/* color per star */
+.s1:hover,.s1.lit{background:rgba(255,59,48,.18);border-color:rgba(255,59,48,.35);box-shadow:0 0 18px rgba(255,59,48,.25);}
+.s2:hover,.s2.lit{background:rgba(255,149,0,.18);border-color:rgba(255,149,0,.35);box-shadow:0 0 18px rgba(255,149,0,.25);}
+.s3:hover,.s3.lit{background:rgba(255,214,10,.18);border-color:rgba(255,214,10,.35);box-shadow:0 0 18px rgba(255,214,10,.25);}
+.s4:hover,.s4.lit{background:rgba(48,209,88,.18);border-color:rgba(48,209,88,.35);box-shadow:0 0 18px rgba(48,209,88,.25);}
+.s5:hover,.s5.lit{background:rgba(48,209,88,.24);border-color:rgba(48,209,88,.5);box-shadow:0 0 22px rgba(48,209,88,.35);}
+
+/* card */
+.card-wrap{padding:0 16px;width:100%;}
+.card{border-radius:var(--r);padding:20px 18px;display:flex;flex-direction:column;gap:12px;}
+
+/* buttons */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px 18px;border-radius:50px;font-family:inherit;font-size:14px;font-weight:800;text-decoration:none;cursor:pointer;border:none;transition:transform .15s,box-shadow .15s;}
+.btn:active{transform:scale(.96);}
+.btn-platform{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);color:var(--t1);text-align:left;justify-content:flex-start;padding:14px 16px;border-radius:14px;}
+.btn-platform:hover{background:rgba(255,255,255,.11);}
+.btn-platform .p-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.2);}
+.btn-platform .p-text{flex:1;}
+.btn-platform .p-name{font-size:14px;font-weight:800;color:var(--t1);}
+.btn-platform .p-sub{font-size:11px;color:var(--t3);font-weight:600;}
+.btn-platform .p-arr{font-size:14px;color:var(--t3);}
+.btn-submit{background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 70%,#fff));color:#fff;box-shadow:0 0 20px color-mix(in srgb,var(--accent) 40%,transparent),0 4px 12px rgba(0,0,0,.3);}
+.btn-back{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);color:var(--t3);font-size:12px;padding:10px;}
+
+/* platform icon colors */
+.pi-google {background:rgba(66,133,244,.22);}
+.pi-yelp   {background:rgba(210,63,63,.22);}
+.pi-fb     {background:rgba(24,119,242,.22);}
+.pi-tp     {background:rgba(0,182,122,.22);}
+
+/* textarea */
+.feedback-box{width:100%;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 16px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;color:var(--t1);resize:none;outline:none;min-height:110px;line-height:1.6;transition:border-color .2s;}
+.feedback-box::placeholder{color:var(--t3);}
+.feedback-box:focus{border-color:rgba(255,255,255,.28);}
+
+/* thank you */
+.ty-ring{width:76px;height:76px;border-radius:50%;background:rgba(48,209,88,.16);border:1.5px solid rgba(48,209,88,.3);display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:14px;box-shadow:0 0 28px rgba(48,209,88,.22);}
+
+/* divider */
+.div{width:100%;height:.5px;background:rgba(255,255,255,.08);}
+
+/* footer */
+.footer{text-align:center;padding:30px 20px 10px;}
+.foot-link{display:inline-flex;align-items:center;gap:7px;text-decoration:none;opacity:.32;transition:opacity .2s;}
+.foot-link:hover{opacity:.58;}
+.foot-badge{width:22px;height:22px;background:#e8531a;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:7.5px;font-weight:900;color:#fff;}
+.foot-text{font-size:11px;font-weight:600;color:var(--t3);}
+
+/* status msg */
+.status{font-size:12px;font-weight:700;text-align:center;padding:2px 0;}
+.status.ok{color:var(--ag);}
+.status.err{color:#ff453a;}
+
+/* char count */
+.char-ct{font-size:11px;color:var(--t3);text-align:right;margin-top:-6px;}
+</style>
+</head>
+<body>
+
+<div class="mesh"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+
+<div class="page">
+
+<!-- ═══════════════════════════════
+     S1 — STAR RATING
+     ═══════════════════════════════ -->
+<div class="screen on" id="s1">
+  <div class="hd">
+    <div class="avatar-ring">
+      <!-- swap emoji for <img class="avatar-inner" src="{{LOGO_URL}}"> -->
+      <div class="avatar-inner">{{LOGO_EMOJI}}</div>
+    </div>
+    <div class="biz-name">{{BIZ_NAME}}</div>
+    <div class="biz-cat">{{BIZ_CATEGORY}}</div>
+  </div>
+
+  <div class="q">
+    <div class="q-title">How did we do?</div>
+    <div class="q-sub">Tap a star to rate your experience.</div>
+  </div>
+
+  <div class="stars-wrap">
+    <button class="star-btn s1" onclick="pickStar(1)" aria-label="1 star">
+      <span class="star-icon">⭐</span>
+      <span class="star-num">1</span>
+    </button>
+    <button class="star-btn s2" onclick="pickStar(2)" aria-label="2 stars">
+      <span class="star-icon">⭐</span>
+      <span class="star-num">2</span>
+    </button>
+    <button class="star-btn s3" onclick="pickStar(3)" aria-label="3 stars">
+      <span class="star-icon">⭐</span>
+      <span class="star-num">3</span>
+    </button>
+    <button class="star-btn s4" onclick="pickStar(4)" aria-label="4 stars">
+      <span class="star-icon">⭐</span>
+      <span class="star-num">4</span>
+    </button>
+    <button class="star-btn s5" onclick="pickStar(5)" aria-label="5 stars">
+      <span class="star-icon">⭐</span>
+      <span class="star-num">5</span>
+    </button>
+  </div>
+
+  <div class="footer">
+    <a href="https://501.business" target="_blank" class="foot-link">
+      <div class="foot-badge">501</div>
+      <span class="foot-text">Built by 501 Digital Marketing</span>
+    </a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════
+     S2A — PLATFORM PICKER (4 or 5 ★)
+     Only shows platforms client has.
+     Toggle visibility per client by
+     removing the platform blocks below.
+     ═══════════════════════════════ -->
+<div class="screen" id="s2a">
+  <div class="hd" style="padding-bottom:12px;">
+    <div style="font-size:52px;margin-bottom:12px;">🌟</div>
+    <div class="biz-name">That means a lot!</div>
+    <div class="q-sub" style="margin-top:8px;max-width:270px;">
+      Would you mind sharing that online?
+      Pick your favorite platform — it takes about 30 seconds.
+    </div>
+  </div>
+
+  <div class="card-wrap">
+    <div class="card glass" style="border-radius:20px;">
+
+      <!-- ── GOOGLE — always show, highest SEO value ── -->
+      <a href="{{GOOGLE_REVIEW_URL}}" target="_blank" class="btn btn-platform">
+        <div class="p-icon pi-google">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+        <div class="p-text">
+          <div class="p-name">Google</div>
+          <div class="p-sub">Helps us show up in local search</div>
+        </div>
+        <span class="p-arr">›</span>
+      </a>
+
+      <!-- ── YELP — remove this block if client has no Yelp ── -->
+      {{#IF_YELP}}
+      <a href="{{YELP_REVIEW_URL}}" target="_blank" class="btn btn-platform">
+        <div class="p-icon pi-yelp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF1A1A"><path d="M10.62 12.18c-.16.22-.43.3-.69.19l-5.5-2.13c-.5-.19-.6-.85-.18-1.2A9.7 9.7 0 0 1 11.5 7c.5.04.85.5.76 1l-.94 3.83a.57.57 0 0 1-.7.35zm2.96.88c.06.26.3.45.57.44l5.87-.17c.53-.02.82-.64.54-1.1a9.73 9.73 0 0 0-4.7-3.84c-.47-.18-.98.14-1 .64l-.4 3.6c-.03.16 0 .32.12.43zm.48 2.23c-.23-.13-.53-.1-.72.08l-4.3 3.98c-.38.35-.25 1 .22 1.17a9.73 9.73 0 0 0 5.85.26c.48-.14.66-.72.37-1.12l-1.08-4.12a.57.57 0 0 0-.34-.25zm-4.2.68c.1-.25.03-.55-.19-.7l-3.2-2.13c-.44-.3-1.02 0-1.02.54v.03a9.73 9.73 0 0 0 2.01 5.26c.3.38.9.33 1.12-.1l1.28-2.9zm1.3.17c.26.04.52-.1.61-.35l1.3-3.77a.57.57 0 0 0-.38-.73L7.1 9.66c-.53-.13-.96.44-.7.92l3.57 5.84c.14.23.39.34.63.3z"/></svg>
+        </div>
+        <div class="p-text">
+          <div class="p-name">Yelp</div>
+          <div class="p-sub">Great for local service discovery</div>
+        </div>
+        <span class="p-arr">›</span>
+      </a>
+      {{/IF_YELP}}
+
+      <!-- ── FACEBOOK — remove this block if client has no FB page ── -->
+      {{#IF_FACEBOOK}}
+      <a href="{{FACEBOOK_REVIEW_URL}}" target="_blank" class="btn btn-platform">
+        <div class="p-icon pi-fb">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047v-2.66c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971h-1.513c-1.491 0-1.956.931-1.956 1.886v2.264h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+        </div>
+        <div class="p-text">
+          <div class="p-name">Facebook</div>
+          <div class="p-sub">Visible to friends &amp; community</div>
+        </div>
+        <span class="p-arr">›</span>
+      </a>
+      {{/IF_FACEBOOK}}
+
+      <!-- ── TRUSTPILOT — remove this block if client has no TP ── -->
+      {{#IF_TRUSTPILOT}}
+      <a href="{{TRUSTPILOT_REVIEW_URL}}" target="_blank" class="btn btn-platform">
+        <div class="p-icon pi-tp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#00B67A"><path d="M12 0l2.59 7.975H23L16.7 12.908l2.59 7.975L12 15.95l-7.29 4.933 2.59-7.975L1 7.975h8.41z"/></svg>
+        </div>
+        <div class="p-text">
+          <div class="p-name">Trustpilot</div>
+          <div class="p-sub">Trusted third-party reviews</div>
+        </div>
+        <span class="p-arr">›</span>
+      </a>
+      {{/IF_TRUSTPILOT}}
+
+      <div class="div"></div>
+
+      <button onclick="go('s1')" class="btn btn-back">← Back</button>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://501.business" target="_blank" class="foot-link">
+      <div class="foot-badge">501</div>
+      <span class="foot-text">Built by 501 Digital Marketing</span>
+    </a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════
+     S2B — PRIVATE FEEDBACK (1, 2, 3 ★)
+     Text box → webhook → thank you
+     ═══════════════════════════════ -->
+<div class="screen" id="s2b">
+  <div class="hd" style="padding-bottom:12px;">
+    <div style="font-size:52px;margin-bottom:12px;">🙏</div>
+    <div class="biz-name">We want to make it right.</div>
+    <div class="q-sub" style="margin-top:8px;max-width:272px;">
+      Tell {{BIZ_FIRST_NAME}} what happened — this goes directly
+      to them, not online. They'll follow up personally.
+    </div>
+  </div>
+
+  <div class="card-wrap">
+    <div class="card glass" style="border-radius:20px;">
+
+      <textarea
+        class="feedback-box"
+        id="feedback-text"
+        placeholder="What could we have done better?"
+        maxlength="600"
+        oninput="updateChar(this)"
+      ></textarea>
+      <div class="char-ct" id="char-ct">0 / 600</div>
+
+      <input type="hidden" id="star-hidden" value="">
+
+      <button class="btn btn-submit" onclick="submitFeedback()" id="submit-btn">
+        📩 &nbsp;Send Private Feedback
+      </button>
+
+      <div class="status" id="status-msg"></div>
+
+      <div class="div"></div>
+
+      <button onclick="go('s1')" class="btn btn-back">← Back</button>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://501.business" target="_blank" class="foot-link">
+      <div class="foot-badge">501</div>
+      <span class="foot-text">Built by 501 Digital Marketing</span>
+    </a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════
+     S3 — THANK YOU (after feedback)
+     ═══════════════════════════════ -->
+<div class="screen" id="s3">
+  <div class="hd">
+    <div class="ty-ring">✓</div>
+    <div class="biz-name">Message received.</div>
+    <div class="q-sub" style="margin-top:8px;max-width:270px;">
+      {{BIZ_FIRST_NAME}} will be in touch soon.
+      Thank you for giving us the chance to make it right.
+    </div>
+  </div>
+
+  <div class="card-wrap">
+    <div class="card glass" style="border-radius:20px;">
+      <button onclick="sharePage()" class="btn" style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);color:var(--t1);">
+        📤 &nbsp;Share {{BIZ_NAME}} with a friend
+      </button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://501.business" target="_blank" class="foot-link">
+      <div class="foot-badge">501</div>
+      <span class="foot-text">Built by 501 Digital Marketing</span>
+    </a>
+  </div>
+</div>
+
+
+</div><!-- /page -->
+
+
+<script>
+/* ─── CONFIG — set once per client ─── */
+const CFG = {
+  slug:    '{{SLUG}}',
+  bizName: '{{BIZ_NAME}}',
+  /* Master 501 webhook — same URL for every client.
+     Swap slug value only, never the webhook URL itself. */
+  webhook: '{{MASTER_WEBHOOK_URL}}'
+};
+
+/* ─── SCREEN ROUTER ─── */
+let chosenStars = 0;
+
+function go(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  const el = document.getElementById(id);
+  if (el) { el.classList.add('on'); window.scrollTo({top:0,behavior:'smooth'}); }
+}
+
+/* ─── STAR TAP ─── */
+function pickStar(n) {
+  chosenStars = n;
+  document.getElementById('star-hidden').value = n;
+  /* light up stars 1 through n */
+  document.querySelectorAll('.star-btn').forEach((btn, i) => {
+    btn.classList.toggle('lit', i < n);
+  });
+  /* short delay so the glow registers before screen switch */
+  setTimeout(() => {
+    go(n >= 4 ? 's2a' : 's2b');
+  }, 220);
+}
+
+/* ─── CHAR COUNT ─── */
+function updateChar(el) {
+  document.getElementById('char-ct').textContent = el.value.length + ' / 600';
+}
+
+/* ─── WEBHOOK SUBMIT ─── */
+async function submitFeedback() {
+  const text = document.getElementById('feedback-text').value.trim();
+  if (!text) {
+    showStatus('Please write something before sending.', 'err');
+    return;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  const payload = {
+    business_slug: CFG.slug,
+    business_name: CFG.bizName,
+    star_rating:   chosenStars,
+    feedback:      text,
+    page_url:      window.location.href,
+    timestamp:     new Date().toISOString()
+  };
+
+  try {
+    await fetch(CFG.webhook, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload)
+    });
+    go('s3');
+  } catch (err) {
+    btn.textContent = '📩 Send Private Feedback';
+    btn.disabled = false;
+    showStatus('Connection issue — please try again.', 'err');
+  }
+}
+
+function showStatus(msg, type) {
+  const el = document.getElementById('status-msg');
+  el.textContent = msg;
+  el.className = 'status ' + type;
+}
+
+/* ─── SHARE ─── */
+async function sharePage() {
+  const url = window.location.href;
+  if (navigator.share) {
+    try { await navigator.share({ title: CFG.bizName, url }); } catch(e) {}
+  } else {
+    try { await navigator.clipboard.writeText(url); alert('Link copied!'); }
+    catch(e) { alert('Share: ' + url); }
+  }
+}
+
+/* ─── DEVICE TILT PARALLAX ─── */
+window.addEventListener('deviceorientation', e => {
+  const x = (e.gamma||0)/28, y = (e.beta||0)/28;
+  document.querySelectorAll('.orb').forEach((o,i) => {
+    const d=(i+1)*8; o.style.transform=`translate(${x*d}px,${y*d}px)`;
+  });
+});
+</script>
+
+<!--
+╔══════════════════════════════════════════════════════════════╗
+║                    VARIABLE REFERENCE                        ║
+╠══════════════════════════════════════════════════════════════╣
+║ {{SLUG}}               URL slug: mikes-plumbing              ║
+║ {{BIZ_NAME}}           Full business name                    ║
+║ {{BIZ_FIRST_NAME}}     Owner first name                      ║
+║ {{BIZ_CATEGORY}}       e.g. "Plumbing · Conway, AR"          ║
+║ {{BRAND_COLOR}}        Hex color e.g. #007AFF                ║
+║ {{LOGO_EMOJI}}         Fallback emoji e.g. 🔧                ║
+║ {{LOGO_URL}}           Real logo/photo URL (optional)        ║
+║                                                              ║
+║ {{MASTER_WEBHOOK_URL}} ONE URL for all clients — set once    ║
+║                        in GHL, never changes                 ║
+║                                                              ║
+║ REVIEW PLATFORM LINKS — how to get them:                     ║
+║ Google:     GBP dashboard → "Ask for reviews" → copy link    ║
+║             OR: search.google.com/local/writereview?placeid= ║
+║             + the business Place ID from Google Maps URL     ║
+║ Yelp:       yelp.com → find biz → "Write a Review" → copy   ║
+║             URL format: yelp.com/writeareview/biz/[ID]       ║
+║ Facebook:   facebook.com/[PAGE_SLUG]/reviews/                ║
+║ Trustpilot: trustpilot.com/evaluate/[DOMAIN.COM]             ║
+║                                                              ║
+║ {{GOOGLE_REVIEW_URL}}     Required — always include          ║
+║ {{YELP_REVIEW_URL}}       Remove {{#IF_YELP}} block if none  ║
+║ {{FACEBOOK_REVIEW_URL}}   Remove {{#IF_FACEBOOK}} if none    ║
+║ {{TRUSTPILOT_REVIEW_URL}} Remove {{#IF_TRUSTPILOT}} if none  ║
+║                                                              ║
+║ PLATFORMS: remove entire block including {{#IF_X}} /{{/IF_X}}║
+║ tags to hide a platform. Keep Google block — always shown.   ║
+║                                                              ║
+║ DEPLOY TO: 501.business/{{SLUG}}-review                      ║
+╚══════════════════════════════════════════════════════════════╝
+-->
+
+</body>
+</html>
